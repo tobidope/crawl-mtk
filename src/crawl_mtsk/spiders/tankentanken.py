@@ -2,10 +2,10 @@ import os
 from datetime import datetime
 import scrapy
 
-from crawl_mtk.items import TankenTankenItem
+from crawl_mtsk.items import TankenTankenItem
 
 
-class TankentankenSpider(scrapy.Spider):
+class TankenTankenSpider(scrapy.Spider):
     name = "tankentanken"
     allowed_domains = ["tankentanken.de"]
     URL_TEMPLATE = (

@@ -7,16 +7,16 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = "crawl_mtk"
+BOT_NAME = "crawl_mtsk"
 
-SPIDER_MODULES = ["crawl_mtk.spiders"]
-NEWSPIDER_MODULE = "crawl_mtk.spiders"
+SPIDER_MODULES = ["crawl_mtsk.spiders"]
+NEWSPIDER_MODULE = "crawl_mtsk.spiders"
 
 ADDONS = {}
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-# USER_AGENT = "crawl_mtk (+http://www.yourdomain.com)"
+# USER_AGENT = "crawl_mtsk (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -41,13 +41,13 @@ DEFAULT_REQUEST_HEADERS = {
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 # SPIDER_MIDDLEWARES = {
-#    "crawl_mtk.middlewares.CrawlMtkSpiderMiddleware": 543,
+#    "crawl_mtk.middlewares.CrawlMtskSpiderMiddleware": 543,
 # }
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 # DOWNLOADER_MIDDLEWARES = {
-#    "crawl_mtk.middlewares.CrawlMtkDownloaderMiddleware": 543,
+#    "crawl_mtk.middlewares.CrawlMtskDownloaderMiddleware": 543,
 # }
 
 # Enable or disable extensions
@@ -59,7 +59,7 @@ DEFAULT_REQUEST_HEADERS = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 # ITEM_PIPELINES = {
-#    "crawl_mtk.pipelines.CrawlMtkPipeline": 300,
+#    "crawl_mtk.pipelines.CrawlMtskPipeline": 300,
 # }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

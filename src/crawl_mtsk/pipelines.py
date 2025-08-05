@@ -8,6 +8,6 @@
 from itemadapter import ItemAdapter
 
 
-class CrawlMtkPipeline:
+class CrawlMtskPipeline:
     def process_item(self, item, spider):
         return item

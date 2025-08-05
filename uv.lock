@@ -83,7 +83,7 @@ wheels = [
 ]
 
 [[package]]
-name = "crawl-mtk"
+name = "crawl-mtsk"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
