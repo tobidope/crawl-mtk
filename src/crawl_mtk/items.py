@@ -8,6 +8,9 @@ import scrapy
 
 class TankenTankenItem(scrapy.Item):
     id = scrapy.Field()
-    price = scrapy.Field()
+    price_diesel = scrapy.Field()
+    price_super = scrapy.Field()
+    price_super_e10 = scrapy.Field()
     address = scrapy.Field()
     name = scrapy.Field()
+    last_transmission = scrapy.Field()

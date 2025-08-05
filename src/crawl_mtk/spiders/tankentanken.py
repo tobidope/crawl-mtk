@@ -1,5 +1,6 @@
 from base64 import urlsafe_b64decode
 import os
+from datetime import datetime
 import scrapy
 
 from crawl_mtk.items import TankenTankenItem
@@ -15,7 +16,7 @@ class TankentankenSpider(scrapy.Spider):
     def __init__(
         self,
         name=None,
-        fuel="supere10",
+        fuel="supere5",
         radius=10,
         longitude=None,
         latitude=None,
@@ -43,27 +44,46 @@ class TankentankenSpider(scrapy.Spider):
     def parse(self, response):
         """
 
-        @url https://tankentanken.de/suche/supere5/1/Dorsten%2C%20NW%2C%20Deutschland/51.6604071/6.9647431
-        @returns items 1 2
-        @returns requests 0 0
-        @scrapes id name price address
+        @url https://tankentanken.de/suche/supere10/1/Berlin%2C%20Deutschland/52.510885/13.3989367
+        @returns request 1 1
         """
-        for tankstelle in response.xpath('//a[@class="station-item"]'):
-            item = TankenTankenItem()
-            item["id"] = tankstelle.xpath(".//@href").get().strip().split("/")[-1]
-            item["name"] = (
-                tankstelle.xpath('.//div[@class="name"]/text()').get().strip()
+        yield from response.follow_all(
+            xpath='//a[@class="station-item"]/@href', callback=self.parse_station
+        )
+
+    def parse_station(self, response):
+        """
+        @url https://tankentanken.de/tankstelle/594eafdd-3537-45ae-8bf0-d667aaa25454
+        @returns items 1 1
+        @scrapes id name address price_diesel price_super price_super_e10 last_transmission
+        """
+        item = TankenTankenItem()
+        item["id"] = response.url.split("/")[-1]
+
+        item["name"] = "".join(
+            _ for _ in response.css("div.headline.uppercase *::text").getall()
+        ).strip()
+
+        item["address"] = ", ".join(
+            _.strip()
+            for _ in response.xpath(
+                "//div[@class='article']/h3//following-sibling::p/text()"
+            ).getall()
+        )
+
+        prices = response.xpath("//div[@class='price-list']//div[@class='price']")
+        for name, price in zip(
+            ("price_diesel", "price_super", "price_super_e10"),
+            prices,
+        ):
+            value = "".join(_.strip() for _ in price.xpath("./*/text()").getall())
+            if value:
+                item[name] = float(value)
+
+        timestamp_str = response.xpath("//span[@class='time-of-capture']/text()").get()
+        if timestamp_str:
+            item["last_transmission"] = datetime.strptime(
+                timestamp_str.strip(), "%d.%m.%Y / %H:%M"
             )
-            # Extrahiere Hauptteil und Nachkommastelle des Preises
-            price_main = tankstelle.xpath('.//div[@class="price"]/text()').get().strip()
-            price_fraction = (
-                tankstelle.xpath('.//div[@class="price"]/sup/text()').get().strip()
-            )
-            item["price"] = float(f"{price_main}{price_fraction}")
-            item["address"] = ", ".join(
-                s.strip()
-                for s in tankstelle.xpath(
-                    './/div[@class="adress uppercase"]/text()'
-                ).getall()
-            )
-            yield item
+
+        yield item
