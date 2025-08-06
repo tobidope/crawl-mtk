@@ -1,0 +1,11 @@
+[Unit]
+Description=MTK Tankstellen Crawler
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/crawl-mtk
+ExecStart=%h/.local/bin/uv run scrapy crawl tankentanken \
+    -a radius=10 \
+    -a latitude="51.02002216137032" \
+    -a longitude="7.073260212252382"
+
