@@ -64,10 +64,10 @@ class SQLitePipeline:
         """,
             (
                 item["id"],
-                item["price_diesel"],
-                item["price_super"],
-                item["price_super_e10"],
-                item["last_transmission"],
+                item.get("price_diesel"),
+                item.get("price_super"),
+                item.get("price_super_e10"),
+                item.get("last_transmission"),
             ),
         )
         self.connection.commit()
