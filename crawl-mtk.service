@@ -4,8 +4,10 @@ Description=MTK Tankstellen Crawler
 [Service]
 Type=oneshot
 WorkingDirectory=%h/crawl-mtk
+ExecStartPre=/bin/mkdir -p %h/scrapy/tankentanken
 ExecStart=%h/.local/bin/uv run scrapy crawl tankentanken \
-    -a radius=10 \
-    -a latitude="51.02002216137032" \
-    -a longitude="7.073260212252382"
+    -s SQLITE_DB_PATH=%h/scrapy/tankentanken/tankentanken.db \
+    -a radius=100 \
+    -a latitude="51.01993415" \
+    -a longitude="7.073307319915711"
 
