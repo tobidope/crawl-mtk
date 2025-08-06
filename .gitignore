@@ -12,3 +12,4 @@ wheels/
 # Scrapy
 .scrapy/
 data.*
+*.db

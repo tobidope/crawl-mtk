@@ -58,9 +58,12 @@ DEFAULT_REQUEST_HEADERS = {
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-# ITEM_PIPELINES = {
-#    "crawl_mtk.pipelines.CrawlMtskPipeline": 300,
-# }
+ITEM_PIPELINES = {
+    "crawl_mtsk.pipelines.SQLitePipeline": 300,
+}
+
+# SQLite Datenbank Einstellungen
+SQLITE_DB_PATH = "tankstellen.db"
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
