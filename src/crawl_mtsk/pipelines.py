@@ -24,7 +24,9 @@ class SQLitePipeline:
             CREATE TABLE IF NOT EXISTS gas_stations (
                 id TEXT PRIMARY KEY,
                 name TEXT,
-                address TEXT
+                address TEXT,
+                latitude REAL,
+                longitude REAL
             )
         """)
 
