@@ -74,6 +74,7 @@ class TankenTankenSpider(scrapy.Spider):
         for name, price in zip(
             ("price_diesel", "price_super", "price_super_e10"),
             prices,
+            strict=True,
         ):
             value = "".join(_.strip() for _ in price.xpath("./*/text()").getall())
             if value:
