@@ -1,0 +1,7 @@
+[Unit]
+Description=MTK Tankstellen Geocoding
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/crawl-mtk
+ExecStart=%h/.local/bin/uv run geocoding %h/scrapy/tankentanken/tankentanken.db
