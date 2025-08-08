@@ -5,7 +5,7 @@ from geopy.geocoders import Nominatim
 
 
 def fix_adresses(address):
-    return address.lower().replace("berg.", "bergisch")
+    return address.lower().replace("berg.", "bergisch").replace("str.", "straße")
 
 
 def main():
