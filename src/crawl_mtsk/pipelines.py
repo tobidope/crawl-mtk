@@ -46,7 +46,7 @@ class SQLitePipeline:
         station_ids = self.connection.execute("""
             SELECT id FROM gas_stations
         """).fetchall()
-        self.stations = frozenset(station_ids)
+        self.stations = frozenset(s[0] for s in station_ids)
 
     def close_spider(self, spider):
         self.connection.close()
