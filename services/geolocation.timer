@@ -2,8 +2,8 @@
 Description=Run MTK Tankstellen Geocoding every hour
 
 [Timer]
-OnBootSec=5min
-OnUnitActiveSec=1h
+OnCalendar=daily
+Persistent=true
 
 [Install]
 WantedBy=timers.target
