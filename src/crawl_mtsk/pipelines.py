@@ -43,19 +43,24 @@ class SQLitePipeline:
             )
         """)
         self.connection.commit()
+        station_ids = self.connection.execute("""
+            SELECT id FROM gas_stations
+        """).fetchall()
+        self.stations = frozenset(station_ids)
 
     def close_spider(self, spider):
         self.connection.close()
 
     def process_item(self, item, spider):
         # Stammdaten einfügen/aktualisieren
-        self.connection.execute(
-            """
-            INSERT OR REPLACE INTO gas_stations (id, name, address)
-            VALUES (?, ?, ?)
-        """,
-            (item["id"], item["name"], item["address"]),
-        )
+        if item["id"] not in self.stations:
+            self.connection.execute(
+                """
+                INSERT INTO gas_stations (id, name, address)
+                VALUES (?, ?, ?)
+            """,
+                (item["id"], item["name"], item["address"]),
+            )
 
         # Preisdaten in Historie einfügen
         self.connection.execute(
