@@ -1,8 +1,0 @@
-[Unit]
-Description=MTK Tankstellen Geocoding
-
-[Service]
-Type=oneshot
-WorkingDirectory=%h/crawl-mtk
-ExecStart=/usr/bin/flock %h/scrapy/tankentanken/ \
-    %h/.local/bin/uv run geolocation %h/scrapy/tankentanken/tankentanken.db

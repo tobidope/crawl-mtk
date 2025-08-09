@@ -4,10 +4,7 @@
     description = "Add your description here"
     readme = "README.md"
     requires-python = ">=3.13"
-    dependencies = ["geopy>=2.4.1", "scrapy>=2.13.3"]
-
-    [project.scripts]
-        geolocation = "crawl_mtsk.geolocation:main"
+    dependencies = ["geopy[aiohttp]>=2.4.1", "scrapy>=2.13.3"]
 
 [build-system]
     requires = ["uv_build>=0.8.4,<0.9.0"]
@@ -20,4 +17,4 @@
     addopts = ["--import-mode=importlib"]
 
 [dependency-groups]
-    dev = ["pytest>=8.0.0", "pytest-asyncio>=1.1.0", "pytest-cov>=4.1.0"]
+    dev = ["pytest>=8.0.0", "pytest-asyncio>=1.1.0", "pytest-cov>=4.1.0", "ruff>=0.12.8"]

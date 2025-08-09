@@ -13,6 +13,7 @@ SPIDER_MODULES = ["crawl_mtsk.spiders"]
 NEWSPIDER_MODULE = "crawl_mtsk.spiders"
 
 ADDONS = {}
+TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -38,28 +39,17 @@ DEFAULT_REQUEST_HEADERS = {
     "Accept-Language": "de",
 }
 
-# Enable or disable spider middlewares
-# See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-# SPIDER_MIDDLEWARES = {
-#    "crawl_mtk.middlewares.CrawlMtskSpiderMiddleware": 543,
-# }
-
-# Enable or disable downloader middlewares
-# See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-# DOWNLOADER_MIDDLEWARES = {
-#    "crawl_mtk.middlewares.CrawlMtskDownloaderMiddleware": 543,
-# }
-
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
-# EXTENSIONS = {
-#    "scrapy.extensions.telnet.TelnetConsole": None,
-# }
+EXTENSIONS = {
+    "scrapy.extensions.telnet.TelnetConsole": None,
+}
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    "crawl_mtsk.pipelines.SQLitePipeline": 300,
+    "crawl_mtsk.pipelines.GeoCodingPipeline": 300,
+    "crawl_mtsk.pipelines.SQLitePipeline": 400,
 }
 
 # SQLite Datenbank Einstellungen

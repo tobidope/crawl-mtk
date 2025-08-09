@@ -14,3 +14,6 @@ class TankenTankenItem(scrapy.Item):
     address = scrapy.Field()
     name = scrapy.Field()
     last_transmission = scrapy.Field()
+    latitude = scrapy.Field()
+    longitude = scrapy.Field()
+    db_id = scrapy.Field()
