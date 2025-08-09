@@ -165,7 +165,16 @@ class GeoCodingPipeline:
         return item
 
     def fix_adresses(self, address):
-        return address.lower().replace("berg.", "bergisch").replace("str.", "straße")
+        return (
+            address.lower()
+            .replace("berg.", "bergisch")
+            .replace("str.", "straße")
+            .replace("nierosta", "nirosta")
+            .replace("linz-kretzhaus", "vettelschoß")
+            .replace("wuelfrath", "velbert")
+            .replace("saaner", "saarner")
+            .replace("-thomasberg", "")
+        )
 
     def needs_geocoding(self, item):
         query = """
