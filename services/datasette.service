@@ -1,0 +1,11 @@
+[Unit]
+Description=Datasette
+
+[Service]
+Type=simple
+Environment=DATASETTE_SECRET=
+ExecStart=%h/.local/bin/datasette serve %h/scrapy/tankentanken/
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
