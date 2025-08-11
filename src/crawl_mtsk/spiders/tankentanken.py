@@ -28,8 +28,8 @@ class TankenTankenSpider(scrapy.Spider):
         self.radius = radius
         if latitude is None or longitude is None:
             raise ValueError("Both latitude and longitude must be provided.")
-        self.latitude = latitude
-        self.longitude = longitude
+        self.latitude = float(latitude)
+        self.longitude = float(longitude)
 
     async def start(self):
         url = self.URL_TEMPLATE.format(
@@ -59,9 +59,11 @@ class TankenTankenSpider(scrapy.Spider):
         item = TankenTankenItem()
         item["id"] = response.url.split("/")[-1]
 
-        item["name"] = "".join(
-            _ for _ in response.css("div.headline.uppercase *::text").getall()
-        ).strip()
+        item["name"] = (
+            "".join(_ for _ in response.css("div.headline.uppercase *::text").getall())
+            .split("|")[0]
+            .strip()
+        )
 
         item["address"] = ", ".join(
             _.strip()

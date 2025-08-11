@@ -5,8 +5,8 @@ from crawl_mtsk.spiders.tankentanken import TankenTankenSpider
 
 def test_spider_initialization():
     spider = TankenTankenSpider(latitude="50.0", longitude="8.0")
-    assert spider.latitude == "50.0"
-    assert spider.longitude == "8.0"
+    assert spider.latitude == 50.0
+    assert spider.longitude == 8.0
     assert spider.radius == 10  # default value
     assert spider.fuel == "supere5"  # default value
 
@@ -56,7 +56,7 @@ def test_parse_station_details():
     assert len(items) == 1
     item = items[0]
     assert item["id"] == "123"
-    assert item["name"] == "Oil! | Leverkusener Straße 41"
+    assert item["name"] == "Oil!"
     assert item["address"] == "Leverkusener Straße 41, 51467 Bergisch Gladbach"
     assert any(
         key in item for key in ["price_diesel", "price_super", "price_super_e10"]
