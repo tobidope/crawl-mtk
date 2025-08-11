@@ -8,7 +8,6 @@ def test_spider_initialization():
     assert spider.latitude == 50.0
     assert spider.longitude == 8.0
     assert spider.radius == 10  # default value
-    assert spider.fuel == "supere5"  # default value
 
 
 def test_spider_missing_coordinates():

@@ -15,7 +15,6 @@ class TankenTankenSpider(scrapy.Spider):
     def __init__(
         self,
         name=None,
-        fuel="supere5",
         radius=10,
         longitude=None,
         latitude=None,
@@ -24,7 +23,6 @@ class TankenTankenSpider(scrapy.Spider):
         super().__init__(name, **kwargs)
         if os.environ.get("SCRAPY_CHECK"):
             return
-        self.fuel = fuel
         self.radius = radius
         if latitude is None or longitude is None:
             raise ValueError("Both latitude and longitude must be provided.")
@@ -32,13 +30,16 @@ class TankenTankenSpider(scrapy.Spider):
         self.longitude = float(longitude)
 
     async def start(self):
-        url = self.URL_TEMPLATE.format(
-            fuel=self.fuel,
-            radius=self.radius,
-            latitude=self.latitude,
-            longitude=self.longitude,
-        )
-        yield scrapy.Request(url=url, callback=self.parse)
+        for fuel in ("supere5", "diesel", "super_e10"):
+            yield scrapy.Request(
+                url=self.URL_TEMPLATE.format(
+                    fuel=fuel,
+                    radius=self.radius,
+                    latitude=self.latitude,
+                    longitude=self.longitude,
+                ),
+                callback=self.parse,
+            )
 
     def parse(self, response):
         """
