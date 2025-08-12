@@ -3,6 +3,30 @@ from scrapy.http import TextResponse, Request
 from crawl_mtsk.spiders.tankentanken import TankenTankenSpider
 
 
+@pytest.fixture
+def station_detail():
+    with open("tests/fixtures/station_detail.html", "rb") as f:
+        return TextResponse(
+            url="https://tankentanken.de/tankstelle/123",
+            body=f.read(),
+            encoding="utf-8",
+            request=Request(url="https://tankentanken.de/tankstelle/123"),
+        )
+
+
+@pytest.fixture
+def station_list():
+    with open("tests/fixtures/station_list.html", "rb") as f:
+        return TextResponse(
+            url="https://tankentanken.de/suche/supere5/10/address/50.0/8.0",
+            body=f.read(),
+            encoding="utf-8",
+            request=Request(
+                url="https://tankentanken.de/suche/supere5/10/address/50.0/8.0"
+            ),
+        )
+
+
 def test_spider_initialization():
     spider = TankenTankenSpider(latitude="50.0", longitude="8.0")
     assert spider.latitude == 50.0
@@ -25,33 +49,21 @@ async def test_start():
     assert request.url == "https://tankentanken.de/suche/supere5/10/address/50.0/8.0"
 
 
-def test_parse_station_list():
+def test_parse_station_list(station_list):
     spider = TankenTankenSpider(latitude="50.0", longitude="8.0")
-    with open("tests/fixtures/station_list.html", "rb") as f:
-        response = TextResponse(
-            url="https://tankentanken.de/suche/supere5/10/address/50.0/8.0",
-            body=f.read(),
-            encoding="utf-8",
-            request=Request(
-                url="https://tankentanken.de/suche/supere5/10/address/50.0/8.0"
-            ),
-        )
-    requests = list(spider.parse(response))
+
+    requests = list(spider.parse(station_list))
+
     assert len(requests) == 2
     assert requests[0].url == "https://tankentanken.de/tankstelle/123"
     assert requests[1].url == "https://tankentanken.de/tankstelle/456"
 
 
-def test_parse_station_details():
+def test_parse_station_details(station_detail):
     spider = TankenTankenSpider(latitude="50.0", longitude="8.0")
-    with open("tests/fixtures/station_detail.html", "rb") as f:
-        response = TextResponse(
-            url="https://tankentanken.de/tankstelle/123",
-            body=f.read(),
-            encoding="utf-8",
-            request=Request(url="https://tankentanken.de/tankstelle/123"),
-        )
-    items = list(spider.parse_station(response))
+
+    items = list(spider.parse_station(station_detail))
+
     assert len(items) == 1
     item = items[0]
     assert item["id"] == "123"
