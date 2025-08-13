@@ -1,0 +1,14 @@
+[Unit]
+Description=MTK Tankstellen Crawler
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/crawl-mtk
+ExecStartPre=/bin/mkdir -p %h/scrapy/clevertanken
+ExecStart=%h/.local/bin/uv run scrapy crawl clevertanken \
+    -s SQLITE_DB_PATH=%h/scrapy/clevertanken/clevertanken.db \
+    -a latitude="51.0161097760326" \
+    -a longitude="7.08073145990689" \
+    -a radius=100 \
+    -a address="51467 Bergisch Gladbach/Schildgen"
+

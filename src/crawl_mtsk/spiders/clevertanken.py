@@ -1,13 +1,47 @@
 from datetime import datetime
+import os
+from typing import Any
 import scrapy
 
 from crawl_mtsk.items import GasStationItem
 
 
 class CleverTankenSpider(scrapy.Spider):
-    name = "CleverTanken"
+    name = "clevertanken"
     allowed_domains = ["clever-tanken.de"]
-    start_urls = ["https://clever-tanken.de"]
+    url_template = "https://www.clever-tanken.de/tankstelle_liste?lat={latitude}&lon={longitude}&ort={address}&spritsorte={fuel}&r={radius}"
+
+    def __init__(
+        self,
+        name: str | None = None,
+        address: str = "",
+        latitude: str | float | None = None,
+        longitude: str | float | None = None,
+        radius: str | int = 1,
+        **kwargs: Any,
+    ):
+        super().__init__(name, **kwargs)
+        if os.environ.get("SCRAPY_CHECK"):
+            return
+        self.address = address
+        if latitude is None or longitude is None:
+            raise ValueError("Both latitude and longitude must be provided.")
+        self.latitude = float(latitude)
+        self.longitude = float(longitude)
+        self.radius = int(radius)
+
+    async def start(self):
+        for fuel in (3, 5, 7):
+            yield scrapy.Request(
+                self.url_template.format(
+                    fuel=fuel,
+                    radius=self.radius,
+                    latitude=self.latitude,
+                    longitude=self.longitude,
+                    address=self.address,
+                ),
+                callback=self.parse,
+            )
 
     def parse(self, response):
         yield from response.follow_all(

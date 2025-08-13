@@ -23,7 +23,7 @@ class TankenTankenSpider(scrapy.Spider):
         super().__init__(name, **kwargs)
         if os.environ.get("SCRAPY_CHECK"):
             return
-        self.radius = radius
+        self.radius = int(radius)
         if latitude is None or longitude is None:
             raise ValueError("Both latitude and longitude must be provided.")
         self.latitude = float(latitude)

@@ -1,12 +1,11 @@
 [Unit]
-Description=MTK Tankstellen Crawler
+Description=Tanken Tanken Crawler
 
 [Service]
 Type=oneshot
 WorkingDirectory=%h/crawl-mtk
 ExecStartPre=/bin/mkdir -p %h/scrapy/tankentanken
-ExecStart=/usr/bin/flock %h/scrapy/tankentanken/ \
-    %h/.local/bin/uv run scrapy crawl tankentanken \
+ExecStart=%h/.local/bin/uv run scrapy crawl tankentanken \
     -s SQLITE_DB_PATH=%h/scrapy/tankentanken/tankentanken.db \
     -a radius=100 \
     -a latitude="51.01993415" \
