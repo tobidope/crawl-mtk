@@ -1,0 +1,3114 @@
+<html lang="de">
+
+<head>
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, minimum-scale=1">
+    <title>Die günstigsten Diesel, Sprit, Benzinpreise, Tankstellen in Ihrer Stadt</title>
+    <meta name="description"
+        content="Bei clever-tanken.de finden Sie die günstigsten Diesel-, Sprit- und Benzinpreise in Ihrer Stadt">
+    <meta name="keywords" content="Suche, Benzinpreis, Dieselpreis, Spritpreis, Stadt, Umkreis">
+    <meta name="robots" content="noindex,follow">
+    <link rel="canonical"
+        href="/tankstelle_liste?spritsorte=5&amp;r=10&amp;ort=51069+K%C3%B6ln%2FDellbr%C3%BCck&amp;lon=7.07410617479976&amp;lat=50.9759207973319">
+    <meta name="author" content="inforoad GmbH">
+    <meta name="content-language" content="de">
+
+
+    <link rel="preconnect" href="https://cp.clever-tanken.de">
+
+
+    <link rel="apple-touch-icon" href="/static/apple-touch-icon.c39c5d549a4a.png">
+    <link rel="shortcut icon" href="/static/favicon.c39c5d549a4a.png">
+    <link rel="manifest" href="/static/manifest.b259339f4174.json">
+    <meta name="apple-itunes-app" content="app-id=300763441">
+
+
+    <link rel="stylesheet" href="/static/css/main.65ee5144afd6.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/static/libs/dygraph/dygraph.98c816a4fe77.css">
+
+    <link rel="preconnect" href="//www.asadcdn.com">
+    <link rel="dns-prefetch" href="//www.asadcdn.com">
+
+
+<body class="">
+
+    <!--[if lt IE 11]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+
+
+    <div id="body-container">
+
+        <div id="list-container">
+
+            <div id="billboard-container" class="ad-container ad-container-desktop">
+                <div id="billboard"></div>
+            </div>
+
+
+
+            <div class="background-row-container background-mat-blue">
+                <div class="pipe-container">
+                    <div class="row">
+                        <div class="col-12 filters-main-container d-flex justify-content-between align-items-center">
+                            <div class="icon-stats-container" onclick="toggleStats('15176', '', '' )">
+                                <div id="icon-stats"></div>
+                            </div>
+                            <div class="d-flex">
+                                <a href="/tankstelle_liste?spritsorte=5&amp;r=10&amp;ort=51069+K%C3%B6ln%2FDellbr%C3%BCck&amp;lon=7.07410617479976&amp;lat=50.9759207973319&amp;sort=p"
+                                    class="icon-filter  filter" id="filter_price" alt="Preis"></a>
+                                <a href="/tankstelle_liste?spritsorte=5&amp;r=10&amp;ort=51069+K%C3%B6ln%2FDellbr%C3%BCck&amp;lon=7.07410617479976&amp;lat=50.9759207973319&amp;sort=abc"
+                                    class="icon-filter  filter" id="filter_name" alt="Name"></a>
+                                <a href="/tankstelle_liste?spritsorte=5&amp;r=10&amp;ort=51069+K%C3%B6ln%2FDellbr%C3%BCck&amp;lon=7.07410617479976&amp;lat=50.9759207973319&amp;sort=km"
+                                    class="icon-filter  filter" id="filter_distance" alt="Distanz"></a>
+                            </div>
+                            <div class="d-flex align-items-center icon-map-container"
+                                onclick="toggleMap( 'map_id', 'map-container', 'icon-text-karte', 'icon-map',  '50,9759207973319', '7,07410617479976', '10',null, false)">
+                                <div id="icon-map"></div>
+                                <span id="icon-text-karte" class="d-none d-sm-block">Karte</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-lr">
+                <div id="side-column-container" class="pipe-container">
+                    <div id="side-column-flex-right">
+                        <div class="row">
+                            <div class="custom-col-price">
+
+
+                                <a href="/tankstellen/stadt-bergisch-gladbach?spritsorte=5">
+                                    <div class="text-color-white-gray city-price-average">
+                                        <div class="headline"><span>Super E10</span></div>
+                                        <div class="weak-body"><span>Bergisch Gladbach</span></div>
+                                        <div class="price d-flex justify-content-start">
+                                            <div>∅</div>
+                                            <div class="city-price-average-text">1.58<sup>7</sup></div>
+                                        </div>
+                                    </div>
+                                </a>
+
+                            </div>
+                            <div class="custom-col-hr">
+                                <hr class="hr-line-blue" id="chart_line">
+                            </div>
+
+
+                            <div class="custom-col-chart mb-4">
+                                <div id="chart-container">
+                                    <div id="chart"></div>
+                                    <div class="ml-2 mt-2 mb-2 text text-color-ice-blue text-chart">
+                                        <span id="station-name-info"></span><br>
+                                        Alle Preisprognosen sind ohne Gewähr. Tatsächliche Preise können abweichen.<br>
+                                        Bitte Öffnungszeiten berücksichtigen. Rote Bereiche kennzeichen Schließzeiten
+                                        der Tankstelle.
+                                    </div>
+                                </div>
+                                <div id="loading-spinner-dygraph">
+                                    <div
+                                        class="d-flex justify-content-center align-items-center loading-spinner-dygraph-wrapper">
+                                        <img src="/static/img/ring-loader.55e493b0fd3c.svg" alt="laoding...">
+                                    </div>
+                                </div>
+                                <div id="no-data-info">
+                                    <div class="d-flex justify-content-center align-items-center h-100">
+                                        <span>Im Moment stehen für diese Tankstelle leider keine Daten zur
+                                            Verfügung</span>
+                                    </div>
+                                </div>
+
+                                <a href="/statistik/historie/super-e10"
+                                    class="body text-color-payment-blue float-left more-stats">Weitere Statistiken</a>
+
+                            </div>
+                        </div>
+                        <div id="mrec-container" class="ad-container ad-container-desktop col-md-12 mt-4">
+                            <div id="mrec"></div>
+                        </div>
+                        <div class="col-md-12 mt-4">
+                            <!-- tisoomi -->
+                            <script type="text/javascript"> //bSUQDza("Medium3") </script>
+                            <span class="bSUQDza_end"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="pipe-container">
+                    <div class="row">
+                        <div id="main-column-container" class="col-12">
+                            <div id="map-container">
+                                <div id="map_id"></div>
+                            </div>
+
+
+                            <a href="/tankstelle_details/15176"
+                                onmouseover="generateDygraph(event, '15176', 'hover', 'star', 'Straßen 111' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.56<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 2 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">star</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>8.6 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Straßen 111</div>
+                                                <div class="fuel-station-location-city"> 51429 Bergisch Gladbach</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/13891"
+                                onmouseover="generateDygraph(event, '13891', 'hover', 'HEM', 'Frankenforster Str. 12' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.56<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 26 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">HEM</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>5.2 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Frankenforster Str. 12</div>
+                                                <div class="fuel-station-location-city"> 51427 Bergisch Gladbach</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/47805"
+                                onmouseover="generateDygraph(event, '47805', 'hover', 'OIL!', 'Friedrich-Ebert-Str. 261' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.56<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 53 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">OIL!</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>7.8 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Friedrich-Ebert-Str. 261</div>
+                                                <div class="fuel-station-location-city"> 51373 Leverkusen</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+                            <div class="adsense_extra_space">
+                                <!-- tisoomi -->
+                                <div class="d-flex justify-content-center">
+                                    <script type="text/javascript"> //bSUQDza("Medium") </script>
+                                    <span class="bSUQDza_end"></span>
+                                </div>
+                                <div class="google-ad">
+                                    <!-- Tankstelle Liste Pos. 3 -->
+                                    <ins class="adsbygoogle" style="display:inline-block;width:100%;height:100px"
+                                        data-ad-client="ca-pub-7015354121783489" data-ad-slot="5408190781"
+                                        data-override-format="true"></ins>
+                                </div>
+                            </div>
+
+
+
+
+                            <a href="/tankstelle_details/48568"
+                                onmouseover="generateDygraph(event, '48568', 'hover', 'bft', 'Willy-Brandt-Ring 100' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.56<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 7 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">bft</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>6.1 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Willy-Brandt-Ring 100</div>
+                                                <div class="fuel-station-location-city"> 51375 Leverkusen</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/53994"
+                                onmouseover="generateDygraph(event, '53994', 'hover', 'OIL!', 'Leverkusener Str. 41' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.56<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 16 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">OIL!</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>4.7 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Leverkusener Str. 41</div>
+                                                <div class="fuel-station-location-city"> 51467 Bergisch Gladbach</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/17099"
+                                onmouseover="generateDygraph(event, '17099', 'hover', 'AVIA Xpress', 'Mülheimer Str. 111' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.56<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 9 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">AVIA Xpress</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>5.6 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Mülheimer Str. 111</div>
+                                                <div class="fuel-station-location-city"> 51375 Leverkusen</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/49418"
+                                onmouseover="generateDygraph(event, '49418', 'hover', 'ORLEN', 'Bechener Str. 12' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.56<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 33 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">ORLEN</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>10.0 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Bechener Str. 12</div>
+                                                <div class="fuel-station-location-city"> 51515 Spitze</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/46605"
+                                onmouseover="generateDygraph(event, '46605', 'hover', 'JET', 'Bergisch Gladbacher Str. 1146' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.56<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 46 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">JET</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>0.8 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Bergisch Gladbacher Str. 1146
+                                                </div>
+                                                <div class="fuel-station-location-city"> 51069 Köln</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/28305"
+                                onmouseover="generateDygraph(event, '28305', 'hover', 'JET', 'Hauptstr. 347' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.56<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 16 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">JET</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>5.2 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Hauptstr. 347</div>
+                                                <div class="fuel-station-location-city"> 51465 Bergisch Gladbach</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/8519"
+                                onmouseover="generateDygraph(event, '8519', 'hover', 'SB', 'Mülheimer Str. 102' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.56<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 28 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">SB</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>2.3 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Mülheimer Str. 102</div>
+                                                <div class="fuel-station-location-city"> 51469 Bergisch Gladbach</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+                            <div class="adsense_extra_space">
+                                <!-- tisoomi -->
+                                <div class="d-flex justify-content-center">
+                                    <script type="text/javascript"> //bSUQDza("Medium2") 
+                                    </script>
+                                    <span class="bSUQDza_end"></span>
+                                </div>
+                                <div class="google-ad">
+                                    <!-- Tankstellen Liste Position 10 -->
+                                    <ins class="adsbygoogle" style="display:inline-block;width:100%;height:100px"
+                                        data-ad-client="ca-pub-7015354121783489" data-ad-slot="7405654388"
+                                        data-override-format="true"></ins>
+                                </div>
+                            </div>
+
+
+
+                            <a href="/tankstelle_details/38465"
+                                onmouseover="generateDygraph(event, '38465', 'hover', 'star', 'Brühler Str. 274' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.56<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 19 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">star</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>12.2 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Brühler Str. 274</div>
+                                                <div class="fuel-station-location-city"> 50968 Köln</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/20203"
+                                onmouseover="generateDygraph(event, '20203', 'hover', 'JET', 'Berliner Str. 462' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.56<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 16 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">JET</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>3.4 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Berliner Str. 462</div>
+                                                <div class="fuel-station-location-city"> 51061 Köln</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/46694"
+                                onmouseover="generateDygraph(event, '46694', 'hover', 'SB', 'Dellbrücker Hauptstr. 9' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.56<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 28 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">SB</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>0.3 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Dellbrücker Hauptstr. 9</div>
+                                                <div class="fuel-station-location-city"> 51069 Köln</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/1972"
+                                onmouseover="generateDygraph(event, '1972', 'hover', 'JET', 'Stixchesstr. 123' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.56<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 1 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">JET</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>7.0 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Stixchesstr. 123</div>
+                                                <div class="fuel-station-location-city"> 51377 Leverkusen</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/2859"
+                                onmouseover="generateDygraph(event, '2859', 'hover', 'JET', 'Kölner Str. 79' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.56<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 15 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">JET</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>5.4 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Kölner Str. 79</div>
+                                                <div class="fuel-station-location-city"> 51429 Bergisch Gladbach</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/15539"
+                                onmouseover="generateDygraph(event, '15539', 'hover', 'star', 'Odenthaler Str. 1' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.56<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 26 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">star</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>3.7 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Odenthaler Str. 1</div>
+                                                <div class="fuel-station-location-city"> 51069 Köln</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/20494"
+                                onmouseover="generateDygraph(event, '20494', 'hover', 'star', 'Kempener Str. 181' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.56<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 33 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">star</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>3.8 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Kempener Str. 181</div>
+                                                <div class="fuel-station-location-city"> 51467 Bergisch Gladbach</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/10892"
+                                onmouseover="generateDygraph(event, '10892', 'hover', 'bft', 'Bensberger Str. 158' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.57<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 30 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">bft</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>4.4 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Bensberger Str. 158</div>
+                                                <div class="fuel-station-location-city"> 51469 Bergisch Gladbach</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/169633"
+                                onmouseover="generateDygraph(event, '169633', 'hover', 'ORLEN', 'Alkenrather Str. 67-69' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.57<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 4 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">ORLEN</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>8.4 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Alkenrather Str. 67-69</div>
+                                                <div class="fuel-station-location-city"> 51377 Leverkusen</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/22380"
+                                onmouseover="generateDygraph(event, '22380', 'hover', 'Markant (Tankautomat)', 'Olpener Str. 27' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.57<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 4 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">Markant
+                                                            (Tankautomat)</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>5.5 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Olpener Str. 27</div>
+                                                <div class="fuel-station-location-city"> 51103 Köln</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/2857"
+                                onmouseover="generateDygraph(event, '2857', 'hover', 'TotalEnergies', 'Paffrather Str. 215' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.57<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 15 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">TotalEnergies</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>3.3 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Paffrather Str. 215</div>
+                                                <div class="fuel-station-location-city"> 51469 Bergisch Gladbach</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/8223"
+                                onmouseover="generateDygraph(event, '8223', 'hover', 'bft', 'Karlstr. 7' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.57<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 12 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">bft</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>10.7 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Karlstr. 7</div>
+                                                <div class="fuel-station-location-city"> 51379 Leverkusen</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/14447"
+                                onmouseover="generateDygraph(event, '14447', 'hover', 'TotalEnergies', 'Bensberger Str. 240' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.57<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 35 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">TotalEnergies</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>4.6 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Bensberger Str. 240</div>
+                                                <div class="fuel-station-location-city"> 51469 Bergisch Gladbach</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/41173"
+                                onmouseover="generateDygraph(event, '41173', 'hover', 'HEM', 'Borsigstr. 22' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.57<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 2 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">HEM</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>9.6 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Borsigstr. 22</div>
+                                                <div class="fuel-station-location-city"> 51381 Leverkusen</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/4969"
+                                onmouseover="generateDygraph(event, '4969', 'hover', 'TotalEnergies', 'Berliner Str. 25' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.57<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 15 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">TotalEnergies</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>7.5 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Berliner Str. 25</div>
+                                                <div class="fuel-station-location-city"> 51377 Leverkusen</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/20227"
+                                onmouseover="generateDygraph(event, '20227', 'hover', 'SB', 'Quettinger Str. 189' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.57<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 14 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">SB</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>10.0 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Quettinger Str. 189</div>
+                                                <div class="fuel-station-location-city"> 51381 Leverkusen</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/169632"
+                                onmouseover="generateDygraph(event, '169632', 'hover', 'Access', 'Olpener Str. 690' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.58<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 15 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">Access</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>3.5 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Olpener Str. 690</div>
+                                                <div class="fuel-station-location-city"> 51109 Köln</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/13783"
+                                onmouseover="generateDygraph(event, '13783', 'hover', 'JET', 'Bergisch Gladbacher Str. 388' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.58<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 19 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">JET</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>3.0 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Bergisch Gladbacher Str. 388
+                                                </div>
+                                                <div class="fuel-station-location-city"> 51067 Köln</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/38464"
+                                onmouseover="generateDygraph(event, '38464', 'hover', 'star', 'Brühler Str. 223' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.58<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 19 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">star</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>11.9 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Brühler Str. 223</div>
+                                                <div class="fuel-station-location-city"> 50968 Köln</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/9405"
+                                onmouseover="generateDygraph(event, '9405', 'hover', 'Shell', 'Kölner Str. 316' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.58<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 14 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">Shell</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>12.4 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Kölner Str. 316</div>
+                                                <div class="fuel-station-location-city"> 51515 Kürten</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/13667"
+                                onmouseover="generateDygraph(event, '13667', 'hover', 'JET', 'Clevischer Ring 49' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.58<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 5 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">JET</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>4.9 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Clevischer Ring 49</div>
+                                                <div class="fuel-station-location-city"> 51063 Köln</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/198479"
+                                onmouseover="generateDygraph(event, '198479', 'hover', 'SH Tankstelle S. Hirlak', 'Broichstr. 28' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.58<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 3 Std.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">SH Tankstelle S.
+                                                            Hirlak</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>3.4 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Broichstr. 28</div>
+                                                <div class="fuel-station-location-city"> 51109 Köln</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/147361"
+                                onmouseover="generateDygraph(event, '147361', 'hover', 'Jaeger Mülheim', 'Bergisch Gladbacher Str. 244' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.58<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 17 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">Jaeger Mülheim</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>3.6 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Bergisch Gladbacher Str. 244
+                                                </div>
+                                                <div class="fuel-station-location-city"> 51063 Köln</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/12577"
+                                onmouseover="generateDygraph(event, '12577', 'hover', 'JET', 'Olpener Str. 60' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.58<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 6 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">JET</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>5.6 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Olpener Str. 60</div>
+                                                <div class="fuel-station-location-city"> 51103 Köln</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/1007"
+                                onmouseover="generateDygraph(event, '1007', 'hover', 'ARAL', 'Am Verteilerkreis Westseite' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.59<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 6 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">ARAL</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>12.0 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Am Verteilerkreis Westseite
+                                                </div>
+                                                <div class="fuel-station-location-city"> 50968 Köln</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/12075"
+                                onmouseover="generateDygraph(event, '12075', 'hover', 'ARAL', 'Solinger Str. 67' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.59<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 77 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">ARAL</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>12.3 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Solinger Str. 67</div>
+                                                <div class="fuel-station-location-city"> 51371 Leverkusen</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/1389"
+                                onmouseover="generateDygraph(event, '1389', 'hover', 'JET', 'Birkenweg 2' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.59<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 37 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">JET</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>10.7 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Birkenweg 2</div>
+                                                <div class="fuel-station-location-city"> 51503 Rösrath</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/45562"
+                                onmouseover="generateDygraph(event, '45562', 'hover', 'ARAL', 'Bergisch Gladbacher Str. 781' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.59<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 31 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">ARAL</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>1.2 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Bergisch Gladbacher Str. 781
+                                                </div>
+                                                <div class="fuel-station-location-city"> 51069 Köln</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/15175"
+                                onmouseover="generateDygraph(event, '15175', 'hover', 'ARAL', 'Kölner Str. 74' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.59<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 11 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">ARAL</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>5.4 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Kölner Str. 74</div>
+                                                <div class="fuel-station-location-city"> 51429 Bergisch Gladbach</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/20039"
+                                onmouseover="generateDygraph(event, '20039', 'hover', 'ARAL', 'Düsseldorfer Str. 491' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.59<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 11 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">ARAL</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>5.5 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Düsseldorfer Str. 491</div>
+                                                <div class="fuel-station-location-city"> 51061 Köln</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/4742"
+                                onmouseover="generateDygraph(event, '4742', 'hover', 'ARAL', 'Olpener Str. 1026' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.59<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 29 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">ARAL</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>3.3 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Olpener Str. 1026</div>
+                                                <div class="fuel-station-location-city"> 51109 Köln</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/9456"
+                                onmouseover="generateDygraph(event, '9456', 'hover', 'Shell', 'Karl-Krekeler-Str. 2' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.59<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 1 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">Shell</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>7.4 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Karl-Krekeler-Str. 2</div>
+                                                <div class="fuel-station-location-city"> 51373 Leverkusen</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/10719"
+                                onmouseover="generateDygraph(event, '10719', 'hover', 'bft', 'Hauptstr. 285' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.59<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 64 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">bft</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>10.8 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Hauptstr. 285</div>
+                                                <div class="fuel-station-location-city"> 51503 Rösrath</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/12324"
+                                onmouseover="generateDygraph(event, '12324', 'hover', 'ARAL', 'Mülheimer Zubringer 140/S' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.59<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 6 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">ARAL</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>4.7 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Mülheimer Zubringer 140/S
+                                                </div>
+                                                <div class="fuel-station-location-city"> 51063 Köln</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/14114"
+                                onmouseover="generateDygraph(event, '14114', 'hover', 'ARAL', 'Odenthaler Str. 205' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.59<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 29 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">ARAL</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>4.8 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Odenthaler Str. 205</div>
+                                                <div class="fuel-station-location-city"> 51467 Bergisch Gladbach</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/157205"
+                                onmouseover="generateDygraph(event, '157205', 'hover', 'Roth- Energie', 'Kölner Str. 93' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.59<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 33 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">Roth- Energie</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>10.6 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Kölner Str. 93</div>
+                                                <div class="fuel-station-location-city"> 51503 Rösrath</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/29472"
+                                onmouseover="generateDygraph(event, '29472', 'hover', 'bft', 'Kölner Str. 47' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.59<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 35 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">bft</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>10.6 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Kölner Str. 47</div>
+                                                <div class="fuel-station-location-city"> 51503 Rösrath</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/8883"
+                                onmouseover="generateDygraph(event, '8883', 'hover', 'ARAL', 'Zollstockgürtel 39' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.59<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 6 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">ARAL</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>12.4 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Zollstockgürtel 39</div>
+                                                <div class="fuel-station-location-city"> 50969 Köln</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/7773"
+                                onmouseover="generateDygraph(event, '7773', 'hover', 'ARAL', 'Steinbücheler Str. 48' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.59<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 89 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">ARAL</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>8.1 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Steinbücheler Str. 48</div>
+                                                <div class="fuel-station-location-city"> 51377 Leverkusen</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+                            <a href="/tankstelle_details/12570"
+                                onmouseover="generateDygraph(event, '12570', 'hover', 'ARAL', 'Altenberger-Dom-Str. 2' )">
+                                <div class="list-card-container d-flex background-white-gray">
+                                    <div class="price-container d-flex flex-column justify-content-center">
+
+                                        <div class="price-text price text-color-ct-blue">
+
+                                            1.59<sup>9</sup>
+
+                                        </div>
+
+
+
+
+                                        <span class="price-changed">geändert<br></span>
+                                        <span class="price-changed">Heute<br></span>
+                                        <span class="price-changed">vor 16 Min.
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="mtsk-logo-container d-flex flex-column justify-content-center align-items-center">
+                                        <img class="mtsk-logo" src="/static/img/icon_troete.b61f6afccfc2.svg" alt="">
+                                        <span class="text-color-white-gray preis-von">Preis von</span>
+                                        <span class="body text-color-white-gray mts-k">MTS-K</span>
+                                    </div>
+
+                                    <div class="fuel-station-container ml-3 d-flex flex-column justify-content-center">
+                                        <div class="fuel-station-row body text-color-ct-blue">
+
+                                            <div class="fuel-station-location">
+                                                <div
+                                                    class="d-flex strong-body justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex align-items-center fuel-station-location-name-icon">
+
+                                                        <span class="fuel-station-location-name">ARAL</span>
+                                                    </div>
+                                                    <div
+                                                        class="fuel-station-location-distance d-flex justify-content-end">
+                                                        <span>6.7 km</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fuel-station-location-street">Altenberger-Dom-Str. 2</div>
+                                                <div class="fuel-station-location-city"> 51519 Odenthal</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+
+
+
+
+
+
+                            <div class="pagination d-flex justify-content-center align-items-center mt-2">
+
+                                <a class="inactive left-arrow mr-2" href="">
+                                    <img class="icon-arrow-pagination"
+                                        src="/static/img/icon_arrow_opac.76b5c62976b9.svg" alt="">
+                                </a>
+
+                                <span class="page-current text-color-white-gray">
+                                    Seite 1 von 2
+                                </span>
+
+                                <a class="right-arrow ml-2"
+                                    href="/tankstelle_liste?spritsorte=5&amp;r=10&amp;ort=51069+K%C3%B6ln%2FDellbr%C3%BCck&amp;lon=7.07410617479976&amp;lat=50.9759207973319&amp;page=2">
+                                    <img class="icon-arrow-pagination" src="/static/img/icon_arrow.19008c538e45.svg"
+                                        alt="">
+                                </a>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+</body>
+
+</html>
