@@ -1,5 +1,5 @@
 [Unit]
-Description=MTK Tankstellen Crawler
+Description=Clever Tanken Crawler
 
 [Service]
 Type=oneshot
