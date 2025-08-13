@@ -77,7 +77,10 @@ class TankenTankenSpider(scrapy.Spider):
         prices = response.css("div.price")
         for label, price in zip(labels, prices, strict=False):
             price = "".join(_.strip() for _ in price.xpath(".//text()").getall())
-            price = float(price.strip())
+            if price:
+                price = float(price.strip())
+            else:
+                price = None
             match label:
                 case "Diesel:":
                     item["price_diesel"] = price
