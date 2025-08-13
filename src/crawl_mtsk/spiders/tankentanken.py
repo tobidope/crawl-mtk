@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 import scrapy
 
-from crawl_mtsk.items import TankenTankenItem
+from crawl_mtsk.items import GasStationItem
 
 
 class TankenTankenSpider(scrapy.Spider):
@@ -57,7 +57,7 @@ class TankenTankenSpider(scrapy.Spider):
         @returns items 1 1
         @scrapes id name address price_diesel price_super price_super_e10 last_transmission
         """
-        item = TankenTankenItem()
+        item = GasStationItem()
         item["id"] = response.url.split("/")[-1]
 
         item["name"] = (
@@ -73,15 +73,18 @@ class TankenTankenSpider(scrapy.Spider):
             ).getall()
         )
 
-        prices = response.xpath("//div[@class='price-list']//div[@class='price']")
-        for name, price in zip(
-            ("price_diesel", "price_super", "price_super_e10"),
-            prices,
-            strict=True,
-        ):
-            value = "".join(_.strip() for _ in price.xpath("./*/text()").getall())
-            if value:
-                item[name] = float(value)
+        labels = response.css("div.label::text").getall()
+        prices = response.css("div.price")
+        for label, price in zip(labels, prices, strict=False):
+            price = "".join(_.strip() for _ in price.xpath(".//text()").getall())
+            price = float(price.strip())
+            match label:
+                case "Diesel:":
+                    item["price_diesel"] = price
+                case "Super:":
+                    item["price_super"] = price
+                case "Super E10:":
+                    item["price_super_e10"] = price
 
         timestamp_str = response.xpath("//span[@class='time-of-capture']/text()").get()
         if timestamp_str:

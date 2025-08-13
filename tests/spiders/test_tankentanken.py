@@ -72,4 +72,7 @@ def test_parse_station_details(station_detail):
     assert any(
         key in item for key in ["price_diesel", "price_super", "price_super_e10"]
     )
+    assert item["price_diesel"] == 1.509
+    assert item["price_super_e10"] == 1.579
+    assert item["price_super"] == 1.639
     assert "address" in item

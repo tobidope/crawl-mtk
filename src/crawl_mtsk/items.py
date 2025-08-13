@@ -6,7 +6,7 @@
 import scrapy
 
 
-class TankenTankenItem(scrapy.Item):
+class GasStationItem(scrapy.Item):
     id = scrapy.Field()
     price_diesel = scrapy.Field()
     price_super = scrapy.Field()
