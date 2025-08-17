@@ -5,6 +5,9 @@ description: |
   The service is designed to help users find the best fuel prices and gas stations in their vicinity
 databases:
   tankentanken:
+    tables:
+      sqlite_sequence:
+        hidden: true
     queries:
       my_stations:
         title: Meine Tankstellen
