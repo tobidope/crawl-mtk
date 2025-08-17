@@ -13,7 +13,6 @@ ExecCondition=/usr/bin/test -f %h/crawl-mtk/uv.lock
 
 # PATH so setzen, dass ~/.local/bin (uv) sicher gefunden wird
 Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin
-Environment=UV_PYTHON=/usr/bin/python3
 Environment=UV_NO_PROGRESS=1
 Environment=PYTHONUNBUFFERED=1
 
