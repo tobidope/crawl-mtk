@@ -7,6 +7,9 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+import os
+
+
 BOT_NAME = "crawl_mtsk"
 
 SPIDER_MODULES = ["crawl_mtsk.spiders"]
@@ -56,6 +59,8 @@ ITEM_PIPELINES = {
 
 # SQLite Datenbank Einstellungen
 SQLITE_DB_PATH = "tankstellen.db"
+
+GOOGLE_MAPS_API_KEY = os.getenv("GOOGLE_MAPS_API_KEY")
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

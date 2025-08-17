@@ -7,8 +7,7 @@
 import logging
 import sqlite3
 from geopy.adapters import AioHTTPAdapter
-from geopy.geocoders import Nominatim
-from geopy.extra.rate_limiter import AsyncRateLimiter
+from geopy.geocoders import GoogleV3
 from scrapy.signals import spider_opened, spider_closed
 
 logger = logging.getLogger(__name__)
@@ -153,11 +152,12 @@ class GeoCodingPipeline:
         self.db_client.create_schema()
 
     async def _on_spider_opened(self, spider):
-        self.locator = Nominatim(
-            user_agent="crawl-mtsk", adapter_factory=AioHTTPAdapter
+        self.locator = GoogleV3(
+            api_key=spider.settings.get("GOOGLE_MAPS_API_KEY"),
+            user_agent="crawl-mtsk",
+            adapter_factory=AioHTTPAdapter,
         )
         await self.locator.__aenter__()
-        self.geocode = AsyncRateLimiter(self.locator.geocode, min_delay_seconds=1)
 
     def close_spider(self, spider):
         self.db_client.close()
@@ -179,7 +179,7 @@ class GeoCodingPipeline:
             return item
         logger.info("Geocoding address for %s", item["address"])
         address = self.fix_adresses(item["address"])
-        location = await self.geocode(address, language="de", country_codes="de")
+        location = await self.locator.geocode(address, exactly_one=True)
         if location:
             logger.info("Found coordinates for %s: %s", item["id"], location)
             item["latitude"] = location.latitude
