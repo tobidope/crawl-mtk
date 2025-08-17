@@ -1,3 +1,8 @@
+source: TankenTanken!
+source_url: https://tankentanken.de/
+description: |
+  TankenTanken! is a service that provides information about gas stations in Germany, with data from the German Federal Cartel Office (Bundeskartellamt). It includes details about fuel prices, gas station locations, and other relevant information.
+  The service is designed to help users find the best fuel prices and gas stations in their vicinity
 databases:
   tankentanken:
     queries:
