@@ -21,11 +21,11 @@ databases:
           )
           SELECT
             g.name,
-            r.station_id,
             r.price_super_e10,
+            g.address,
+            'https://tankentanken.de/tankstelle/' || g.station_id as link,
             g.latitude,
-            g.longitude,
-            g.address
+            g.longitude
           FROM
             ranked r
             join gas_stations g on r.station_id = g.id

@@ -8,6 +8,7 @@ ExecStart=%h/.local/bin/datasette serve \
     %h/scrapy/tankentanken/tankentanken.db \
     %h/scrapy/clevertanken/clevertanken.db \
     -m %h/crawl-mtk/datasette/metadata.yaml \
+    --install=datasette-cluster-map
     --host 0.0.0.0 --port 8001
 Restart=on-failure
 
