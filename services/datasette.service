@@ -6,7 +6,8 @@ Type=simple
 Environment=DATASETTE_SECRET=
 ExecStart=%h/.local/bin/datasette serve \
     %h/scrapy/tankentanken/tankentanken.db \
-    %h/scrapy/clevertanken/clevertanken.db 
+    %h/scrapy/clevertanken/clevertanken.db \
+    --host 0.0.0.0 --port 8001
 Restart=on-failure
 
 [Install]

@@ -1,13 +1,49 @@
 [Unit]
-Description=Tanken Tanken Crawler
+Description=Tanken Tanken Crawler (Scrapy via uv; frozen to uv.lock)
+Wants=network-online.target
+After=network-online.target
 
 [Service]
 Type=oneshot
+# Dein Projektordner mit pyproject.toml + uv.lock
 WorkingDirectory=%h/crawl-mtk
-ExecStartPre=/bin/mkdir -p %h/scrapy/tankentanken
-ExecStart=%h/.local/bin/uv run scrapy crawl tankentanken \
-    -s SQLITE_DB_PATH=%h/scrapy/tankentanken/tankentanken.db \
-    -a radius=100 \
-    -a latitude="51.01993415" \
-    -a longitude="7.073307319915711"
 
+# Fail fast, wenn das Lockfile fehlt
+ExecCondition=/usr/bin/test -f %h/crawl-mtk/uv.lock
+
+# PATH so setzen, dass ~/.local/bin (uv) sicher gefunden wird
+Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin
+Environment=UV_PYTHON=/usr/bin/python3
+Environment=UV_NO_PROGRESS=1
+Environment=PYTHONUNBUFFERED=1
+
+# Optional: Variablen aus .env laden (falls vorhanden)
+EnvironmentFile=-%h/crawl-mtk/.env
+
+# Zielverzeichnis für DB/Outputs
+ExecStartPre=/bin/mkdir -p %h/scrapy/tankentanken
+
+# 1) Reproduzierbar synchronisieren (exakt nach uv.lock, keine Dev-Gruppen)
+ExecStartPre=%h/.local/bin/uv sync --frozen --no-dev --python /usr/bin/python3
+
+# 2) Scrapy aus dem erzeugten venv starten (kein 'uv run' im Dauerbetrieb)
+ExecStart=%h/crawl-mtk/.venv/bin/scrapy crawl tankentanken \
+  -s SQLITE_DB_PATH=%h/scrapy/tankentanken/tankentanken.db \
+  -a radius=100 \
+  -a latitude=51.01993415 \
+  -a longitude=7.073307319915711
+
+# 3) Scrapy aus dem erzeugten venv starten (kein 'uv run' im Dauerbetrieb)
+ExecStart=%h/crawl-mtk/.venv/bin/scrapy crawl tankentanken \
+  -s SQLITE_DB_PATH=%h/scrapy/tankentanken/tankentanken.db \
+  -a radius=10 \
+  -a latitude=51.6604071 \
+  -a longitude=6.9647431
+
+# Hardening & Limits (sofern vom Systemd-User-Manager unterstützt)
+NoNewPrivileges=true
+ProtectSystem=full
+ProtectHome=true
+LockPersonality=true
+ReadWritePaths=%h/scrapy/tankentanken %h/crawl-mtk
+LimitNOFILE=65536
