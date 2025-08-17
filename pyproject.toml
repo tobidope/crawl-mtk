@@ -3,7 +3,7 @@
     version = "0.1.0"
     description = "Add your description here"
     readme = "README.md"
-    requires-python = ">=3.13"
+    requires-python = ">=3.12"
     dependencies = ["geopy[aiohttp]>=2.4.1", "scrapy>=2.13.3"]
 
 [build-system]
