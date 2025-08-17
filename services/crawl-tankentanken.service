@@ -24,7 +24,7 @@ EnvironmentFile=-%h/crawl-mtk/.env
 ExecStartPre=/bin/mkdir -p %h/scrapy/tankentanken
 
 # 1) Reproduzierbar synchronisieren (exakt nach uv.lock, keine Dev-Gruppen)
-ExecStartPre=%h/.local/bin/uv sync --frozen --no-dev --python /usr/bin/python3
+ExecStartPre=%h/.local/bin/uv sync --frozen --no-dev
 
 # 2) Scrapy aus dem erzeugten venv starten (kein 'uv run' im Dauerbetrieb)
 ExecStart=%h/crawl-mtk/.venv/bin/scrapy crawl tankentanken \
