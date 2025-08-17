@@ -25,19 +25,26 @@ ExecStartPre=/bin/mkdir -p %h/scrapy/tankentanken
 # 1) Reproduzierbar synchronisieren (exakt nach uv.lock, keine Dev-Gruppen)
 ExecStartPre=%h/.local/bin/uv sync --frozen --no-dev
 
-# 2) Scrapy aus dem erzeugten venv starten (kein 'uv run' im Dauerbetrieb)
+# 2) Schildgen
 ExecStart=%h/crawl-mtk/.venv/bin/scrapy crawl tankentanken \
   -s SQLITE_DB_PATH=%h/scrapy/tankentanken/tankentanken.db \
-  -a radius=100 \
+  -a radius=10 \
   -a latitude=51.01993415 \
   -a longitude=7.073307319915711
 
-# 3) Scrapy aus dem erzeugten venv starten (kein 'uv run' im Dauerbetrieb)
+# 3) Dorsten
 ExecStart=%h/crawl-mtk/.venv/bin/scrapy crawl tankentanken \
   -s SQLITE_DB_PATH=%h/scrapy/tankentanken/tankentanken.db \
   -a radius=10 \
   -a latitude=51.6604071 \
   -a longitude=6.9647431
+
+# 3) Bergheim
+ExecStart=%h/crawl-mtk/.venv/bin/scrapy crawl tankentanken \
+  -s SQLITE_DB_PATH=%h/scrapy/tankentanken/tankentanken.db \
+  -a radius=10 \
+  -a latitude=50.9497464 \
+  -a longitude=6.6527054
 
 # Hardening & Limits (sofern vom Systemd-User-Manager unterstützt)
 NoNewPrivileges=true
