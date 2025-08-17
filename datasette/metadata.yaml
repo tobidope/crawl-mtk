@@ -1,6 +1,35 @@
 databases:
   tankentanken:
-    tables:
-      gas_stations:
-        columns:
-          station_id: "Eindeutiger"
+    queries:
+      my_stations:
+        title: Meine Tankstellen
+        hide_sql: true
+        sql: |-
+          WITH ranked AS (
+            SELECT
+              ph.*,
+              ROW_NUMBER() OVER (
+                PARTITION BY station_id
+                ORDER BY
+                  last_transmission DESC,
+                  id DESC
+              ) AS rn
+            FROM
+              price_history ph
+            WHERE
+              station_id IN (819, 765, 160, 755, 447, 54, 1033, 1035, 396)
+          )
+          SELECT
+            g.name,
+            r.station_id,
+            r.price_super_e10,
+            g.latitude,
+            g.longitude,
+            g.address
+          FROM
+            ranked r
+            join gas_stations g on r.station_id = g.id
+          WHERE
+            rn = 1
+          order by
+            r.price_super_e10 asc;

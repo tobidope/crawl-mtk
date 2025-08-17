@@ -3,10 +3,11 @@ Description=Datasette
 
 [Service]
 Type=simple
-Environment=DATASETTE_SECRET=
+EnvironmentFile=-%h/crawl-mtk/datasette/.env
 ExecStart=%h/.local/bin/datasette serve \
     %h/scrapy/tankentanken/tankentanken.db \
     %h/scrapy/clevertanken/clevertanken.db \
+    -m %h/crawl-mtk/datasette/metadata.yaml \
     --host 0.0.0.0 --port 8001
 Restart=on-failure
 
