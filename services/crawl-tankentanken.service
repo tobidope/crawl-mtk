@@ -14,6 +14,7 @@ ExecCondition=/usr/bin/test -f %h/crawl-mtk/uv.lock
 # PATH so setzen, dass ~/.local/bin (uv) sicher gefunden wird
 Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin
 Environment=UV_NO_PROGRESS=1
+Environment=UV_PYTHON=/usr/bin/python3
 Environment=PYTHONUNBUFFERED=1
 
 # Optional: Variablen aus .env laden (falls vorhanden)
@@ -22,10 +23,13 @@ EnvironmentFile=-%h/crawl-mtk/.env
 # Zielverzeichnis für DB/Outputs
 ExecStartPre=/bin/mkdir -p %h/scrapy/tankentanken
 
-# 1) Reproduzierbar synchronisieren (exakt nach uv.lock, keine Dev-Gruppen)
+# Git-Repository aktualisieren
+ExecStartPre=-/usr/bin/git pull
+
+# Reproduzierbar synchronisieren (exakt nach uv.lock, keine Dev-Gruppen)
 ExecStartPre=%h/.local/bin/uv sync --frozen --no-dev
 
-# 2) Crawler starten
+# Crawler starten
 ExecStart=%h/crawl-mtk/.venv/bin/scrapy crawl tankentanken \
   -s SQLITE_DB_PATH=%h/scrapy/tankentanken/tankentanken.db \
   -a locations='[{"radius": 10, "latitude": 51.01993415, "longitude": 7.073307319915711}, \
