@@ -46,6 +46,13 @@ ExecStart=%h/crawl-mtk/.venv/bin/scrapy crawl tankentanken \
   -a latitude=50.9497464 \
   -a longitude=6.6527054
 
+# 4) Arbeit
+ExecStart=%h/crawl-mtk/.venv/bin/scrapy crawl tankentanken \
+  -s SQLITE_DB_PATH=%h/scrapy/tankentanken/tankentanken.db \
+  -a radius=5 \
+  -a latitude=50.963846 \
+  -a longitude=7.052299
+
 # Hardening & Limits (sofern vom Systemd-User-Manager unterstützt)
 NoNewPrivileges=true
 ProtectSystem=full
