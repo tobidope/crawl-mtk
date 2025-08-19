@@ -1,3 +1,4 @@
+import ast
 import os
 from datetime import datetime
 import scrapy
@@ -18,28 +19,54 @@ class TankenTankenSpider(scrapy.Spider):
         radius=10,
         longitude=None,
         latitude=None,
+        locations=None,
         **kwargs,
     ):
+        """
+        Either provide a list of locations as a string representation of a list of dictionaries
+        with 'latitude', 'longitude', and optionally 'radius', or provide a single latitude and
+        longitude. If 'locations' is provided, it will override 'latitude', 'longitude', and 'radius'.
+
+        :param radius: Search radius in kilometers
+        :param longitude: Longitude of the center point
+        :param latitude: Latitude of the center point
+        :param locations: A string representation of a list of dictionaries with 'latitude', 'longitude', and optionally 'radius'.
+        """
         super().__init__(name, **kwargs)
         if os.environ.get("SCRAPY_CHECK"):
             return
-        self.radius = int(radius)
+        if locations:
+            self.locations = ast.literal_eval(locations)
+            for location in self.locations:
+                if not isinstance(location, dict):
+                    raise ValueError("locations must be a list of dictionaries.")
+                if "latitude" not in location or "longitude" not in location:
+                    raise ValueError("Each location must have latitude and longitude.")
+                location["latitude"] = float(location["latitude"])
+                location["longitude"] = float(location["longitude"])
+                if "radius" not in location:
+                    location["radius"] = radius
+            return
+        self.locations = [{}]
+        location = self.locations[0]
+        location["radius"] = int(radius)
         if latitude is None or longitude is None:
             raise ValueError("Both latitude and longitude must be provided.")
-        self.latitude = float(latitude)
-        self.longitude = float(longitude)
+        location["latitude"] = float(latitude)
+        location["longitude"] = float(longitude)
 
     async def start(self):
-        for fuel in ("supere5", "diesel", "super_e10"):
-            yield scrapy.Request(
-                url=self.URL_TEMPLATE.format(
-                    fuel=fuel,
-                    radius=self.radius,
-                    latitude=self.latitude,
-                    longitude=self.longitude,
-                ),
-                callback=self.parse,
-            )
+        for location in self.locations:
+            for fuel in ("supere5", "diesel", "super_e10"):
+                yield scrapy.Request(
+                    url=self.URL_TEMPLATE.format(
+                        fuel=fuel,
+                        radius=location["radius"],
+                        latitude=location["latitude"],
+                        longitude=location["longitude"],
+                    ),
+                    callback=self.parse,
+                )
 
     def parse(self, response):
         """

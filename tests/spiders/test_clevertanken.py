@@ -31,7 +31,7 @@ def station_detail():
 
 
 def test_spider_parse(station_list):
-    spider = CleverTankenSpider()
+    spider = CleverTankenSpider("adresse", "50.0", "8.0")
 
     requests = list(spider.parse(station_list))
 
@@ -47,7 +47,7 @@ def test_spider_parse(station_list):
 
 
 def test_spider_parse_station(station_detail):
-    spider = CleverTankenSpider()
+    spider = CleverTankenSpider("adresse", "50.0", "8.0")
 
     result = list(spider.parse_station(station_detail))
 

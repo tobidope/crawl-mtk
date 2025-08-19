@@ -13,10 +13,10 @@ class CleverTankenSpider(scrapy.Spider):
 
     def __init__(
         self,
+        address: str,
+        latitude: str | float,
+        longitude: str | float,
         name: str | None = None,
-        address: str = "",
-        latitude: str | float | None = None,
-        longitude: str | float | None = None,
         radius: str | int = 1,
         **kwargs: Any,
     ):

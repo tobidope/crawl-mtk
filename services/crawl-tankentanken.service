@@ -25,33 +25,14 @@ ExecStartPre=/bin/mkdir -p %h/scrapy/tankentanken
 # 1) Reproduzierbar synchronisieren (exakt nach uv.lock, keine Dev-Gruppen)
 ExecStartPre=%h/.local/bin/uv sync --frozen --no-dev
 
-# 2) Schildgen
+# 2) Crawler starten
 ExecStart=%h/crawl-mtk/.venv/bin/scrapy crawl tankentanken \
   -s SQLITE_DB_PATH=%h/scrapy/tankentanken/tankentanken.db \
-  -a radius=10 \
-  -a latitude=51.01993415 \
-  -a longitude=7.073307319915711
-
-# 3) Dorsten
-ExecStart=%h/crawl-mtk/.venv/bin/scrapy crawl tankentanken \
-  -s SQLITE_DB_PATH=%h/scrapy/tankentanken/tankentanken.db \
-  -a radius=10 \
-  -a latitude=51.6604071 \
-  -a longitude=6.9647431
-
-# 3) Bergheim
-ExecStart=%h/crawl-mtk/.venv/bin/scrapy crawl tankentanken \
-  -s SQLITE_DB_PATH=%h/scrapy/tankentanken/tankentanken.db \
-  -a radius=10 \
-  -a latitude=50.9497464 \
-  -a longitude=6.6527054
-
-# 4) Arbeit
-ExecStart=%h/crawl-mtk/.venv/bin/scrapy crawl tankentanken \
-  -s SQLITE_DB_PATH=%h/scrapy/tankentanken/tankentanken.db \
-  -a radius=5 \
-  -a latitude=50.963846 \
-  -a longitude=7.052299
+  -a location='[{"radius": 10, "latitude": 51.01993415, "longitude": 7.073307319915711}, \
+                {"radius": 10, "latitude": 51.6604071, "longitude": 6.6604071}, \
+                {"radius": 10, "latitude": 50.9497464, "longitude": 6.6527054}, \
+                {"radius": 10, "latitude": 50.963846, "longitude": 7.052299}]'
+  
 
 # Hardening & Limits (sofern vom Systemd-User-Manager unterstützt)
 NoNewPrivileges=true

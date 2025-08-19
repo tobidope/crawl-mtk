@@ -29,9 +29,18 @@ def station_list():
 
 def test_spider_initialization():
     spider = TankenTankenSpider(latitude="50.0", longitude="8.0")
-    assert spider.latitude == 50.0
-    assert spider.longitude == 8.0
-    assert spider.radius == 10  # default value
+    assert spider.locations[0]["latitude"] == 50.0
+    assert spider.locations[0]["longitude"] == 8.0
+    assert spider.locations[0]["radius"] == 10  # default value
+
+
+def test_spider_initialization_with_locations():
+    locations = '[{"latitude": "50.0", "longitude": "8.0", "radius": 5}]'
+    spider = TankenTankenSpider(locations=locations)
+    assert len(spider.locations) == 1
+    assert spider.locations[0]["latitude"] == 50.0
+    assert spider.locations[0]["longitude"] == 8.0
+    assert spider.locations[0]["radius"] == 5
 
 
 def test_spider_missing_coordinates():
