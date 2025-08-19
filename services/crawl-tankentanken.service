@@ -28,7 +28,7 @@ ExecStartPre=%h/.local/bin/uv sync --frozen --no-dev
 # 2) Crawler starten
 ExecStart=%h/crawl-mtk/.venv/bin/scrapy crawl tankentanken \
   -s SQLITE_DB_PATH=%h/scrapy/tankentanken/tankentanken.db \
-  -a location='[{"radius": 10, "latitude": 51.01993415, "longitude": 7.073307319915711}, \
+  -a locations='[{"radius": 10, "latitude": 51.01993415, "longitude": 7.073307319915711}, \
                 {"radius": 10, "latitude": 51.6604071, "longitude": 6.6604071}, \
                 {"radius": 10, "latitude": 50.9497464, "longitude": 6.6527054}, \
                 {"radius": 10, "latitude": 50.963846, "longitude": 7.052299}]'
