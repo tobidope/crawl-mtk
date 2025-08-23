@@ -94,16 +94,37 @@ function handleTimeRangeChange(event) {
 }
 
 /**
+ * Ruft Daten von der Datasette API ab und behandelt die Paginierung.
+ * @param {string} initialUrl - Die anfängliche URL für die API-Anfrage.
+ * @returns {Promise<Array>} Ein Promise, das zu einem Array mit allen Zeilen auflöst.
+ */
+async function fetchPaginatedData(initialUrl) {
+    let allRows = [];
+    let url = initialUrl;
+
+    while (url) {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status} for URL: ${url}`);
+        }
+        const data = await response.json();
+        // Datasette's default JSON shape has a 'rows' property
+        if (data.rows) {
+            allRows = allRows.concat(data.rows);
+        }
+        url = data.next_url; // Continue to the next page if it exists
+    }
+    return allRows;
+}
+
+/**
  * Ruft die Liste aller Tankstellen von der datasette API ab.
  */
 async function fetchStations() {
     // Diese Abfrage holt alle eindeutigen Tankstellen
     const sqlQuery = `select station_id, name, address from gas_stations order by name;`;
-    const response = await fetch(`${API_BASE_URL}/${DB_NAME}.json?_shape=array&sql=${encodeURIComponent(sqlQuery)}`);
-    if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    return await response.json();
+    const url = `${API_BASE_URL}/${DB_NAME}.json?sql=${encodeURIComponent(sqlQuery)}`;
+    return await fetchPaginatedData(url);
 }
 
 /**
@@ -353,16 +374,12 @@ async function fetchPriceHistory(stationId) {
         WHERE gs.station_id = :station_id
         ORDER BY ph.last_transmission;
     `;
-    const url = `${API_BASE_URL}/${DB_NAME}.json?_shape=array&sql=${encodeURIComponent(sqlQuery)}&station_id=${stationId}`;
+    const url = `${API_BASE_URL}/${DB_NAME}.json?sql=${encodeURIComponent(sqlQuery)}&station_id=${stationId}`;
 
     try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return await response.json();
+        return await fetchPaginatedData(url);
     } catch (error) {
-        console.error("Fehler beim Abrufen der Preis-Historie:", error);
+        console.error(`Fehler beim Abrufen der Preis-Historie für Station ${stationId}:`, error);
         return []; // Gib ein leeres Array zurück, um Promise.all nicht zu unterbrechen
     }
 }
