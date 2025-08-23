@@ -60,3 +60,24 @@ body {
     font-weight: bold;
     color: #555;
 }
+
+#pricePatternAnalysis {
+    margin-top: 2em;
+    border-top: 1px solid #eee;
+    padding-top: 1em;
+}
+
+.station-analysis {
+    margin-bottom: 1em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.station-analysis:last-child {
+    border-bottom: none;
+}
+
+.station-analysis h3 {
+    margin-top: 0;
+    font-size: 1.1em;
+}

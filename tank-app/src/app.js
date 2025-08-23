@@ -331,6 +331,67 @@ function renderMultiStationChart(stationDataArray) {
 }
 
 /**
+ * Analysiert die Preisdaten einer Tankstelle, um typische Muster zu finden.
+ * @param {Array} priceData - Die Preis-Historie einer Tankstelle.
+ * @param {string} fuelKey - Der Schlüssel für die zu analysierende Kraftstoffart (z.B. 'price_super_e10').
+ * @returns {object|null} Ein Objekt mit den Analyseergebnissen oder null.
+ */
+function analyzePricePatterns(priceData, fuelKey) {
+    const dayNames = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
+    const dailyStats = Array(7).fill(null).map(() => ({ sum: 0, count: 0 }));
+    const hourlyStats = Array(24).fill(null).map(() => ({ sum: 0, count: 0 }));
+
+    priceData.forEach(row => {
+        const price = row[fuelKey];
+        if (price) {
+            const date = new Date(row.last_transmission);
+            const day = date.getDay();
+            const hour = date.getHours();
+
+            dailyStats[day].sum += price;
+            dailyStats[day].count++;
+
+            hourlyStats[hour].sum += price;
+            hourlyStats[hour].count++;
+        }
+    });
+
+    const dailyAverages = dailyStats.map(stat => stat.count > 0 ? stat.sum / stat.count : null);
+    const hourlyAverages = hourlyStats.map(stat => stat.count > 0 ? stat.sum / stat.count : null);
+
+    // Finde min/max für Tage
+    let cheapestDay = { index: -1, price: Infinity };
+    let dearestDay = { index: -1, price: -Infinity };
+    dailyAverages.forEach((price, index) => {
+        if (price !== null) {
+            if (price < cheapestDay.price) cheapestDay = { index, price };
+            if (price > dearestDay.price) dearestDay = { index, price };
+        }
+    });
+
+    // Finde min/max für Stunden
+    let cheapestHour = { index: -1, price: Infinity };
+    let dearestHour = { index: -1, price: -Infinity };
+    hourlyAverages.forEach((price, index) => {
+        if (price !== null) {
+            if (price < cheapestHour.price) cheapestHour = { index, price };
+            if (price > dearestHour.price) dearestHour = { index, price };
+        }
+    });
+
+    if (cheapestDay.index === -1 || cheapestHour.index === -1) {
+        return null; // Nicht genügend Daten für eine Analyse
+    }
+
+    return {
+        cheapestDay: { day: dayNames[cheapestDay.index], price: cheapestDay.price },
+        dearestDay: { day: dayNames[dearestDay.index], price: dearestDay.price },
+        cheapestHour: { hour: cheapestHour.index, price: cheapestHour.price },
+        dearestHour: { hour: dearestHour.index, price: dearestHour.price }
+    };
+}
+
+/**
  * Analysiert die aktuellen Preise der ausgewählten Tankstellen und gibt eine Empfehlung.
  * @param {Array} stationDataArray
  */
@@ -373,6 +434,38 @@ function analyzeMultiStationPrices(stationDataArray) {
     } else {
         recommendationEl.textContent = "Keine aktuellen Preisdaten für die ausgewählten Kraftstoffarten gefunden.";
     }
+
+    // Führe die Preismuster-Analyse durch und zeige sie an
+    const patternContainer = document.getElementById('pricePatternAnalysis');
+    patternContainer.innerHTML = ''; // Vorherige Ergebnisse löschen
+
+    stationDataArray.forEach(sd => {
+        // Analysiere nur, wenn genügend Datenpunkte vorhanden sind (z.B. mehr als 50)
+        if (sd.data.length < 50) {
+            return;
+        }
+
+        const stationAnalysisEl = document.createElement('div');
+        stationAnalysisEl.className = 'station-analysis';
+        stationAnalysisEl.innerHTML = `<h3>Preismuster für ${sd.station.name}</h3>`;
+
+        activeFuelTypes.forEach(fuel => {
+            const patterns = analyzePricePatterns(sd.data, fuel.key);
+            if (patterns) {
+                const fuelAnalysisEl = document.createElement('p');
+                fuelAnalysisEl.innerHTML = `
+                    <strong>${fuel.name}:</strong><br>
+                    Typisch am günstigsten: <strong>${patterns.cheapestDay.day}s, ca. ${patterns.cheapestHour.hour}:00 Uhr</strong> (Ø ${patterns.cheapestHour.price.toFixed(3)}€)<br>
+                    Typisch am teuersten: <strong>${patterns.dearestDay.day}s, ca. ${patterns.dearestHour.hour}:00 Uhr</strong> (Ø ${patterns.dearestHour.price.toFixed(3)}€)
+                `;
+                stationAnalysisEl.appendChild(fuelAnalysisEl);
+            }
+        });
+
+        if (stationAnalysisEl.children.length > 1) { // Füge das Element nur hinzu, wenn eine Analyse möglich war
+            patternContainer.appendChild(stationAnalysisEl);
+        }
+    });
 }
 
 // Starte die Anwendung, wenn das DOM geladen ist.
