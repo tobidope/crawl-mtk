@@ -4,11 +4,14 @@ import Fuse from 'fuse.js';
 const API_BASE_URL = "https://datasette.familie-bell.com"; // Deine datasette URL
 const DB_NAME = "tankentanken"; // Der Name deiner Datenbankdatei ohne .db
 
-let priceChart;
-let fuse;
-let allStations = [];
-let selectedStations = [];
-let selectedFuelTypes = [];
+const state = {
+    priceChart: undefined,
+    fuse: undefined,
+    allStations: [],
+    selectedStations: [],
+    selectedFuelTypes: [],
+    selectedTimeRange: 'all',
+};
 
 // Eine Farbpalette, um die verschiedenen Tankstellen im Diagramm zu unterscheiden
 const CHART_COLORS = [
@@ -24,31 +27,45 @@ const FUEL_TYPE_CONFIG = [
 ];
 
 /**
- * Initialisiert die Anwendung: Lädt die Tankstellen und richtet die Suche ein.
+ * Richtet die Event-Listener für die UI-Elemente ein.
  */
-async function init() {
+function setupEventListeners() {
     const searchInput = document.getElementById('stationSearch');
     searchInput.addEventListener('input', handleSearchInput);
     document.querySelectorAll('#fuelTypeSelector input[name="fuel"]').forEach(checkbox => {
         checkbox.addEventListener('change', handleFuelTypeChange);
     });
+    document.querySelectorAll('#timeRangeSelector input[name="timeRange"]').forEach(radio => {
+        radio.addEventListener('change', handleTimeRangeChange);
+    });
+}
 
+/**
+ * Initialisiert die Anwendungslogik, lädt Daten und den Zustand aus dem LocalStorage.
+ */
+async function initializeApp() {
     try {
-        allStations = await fetchStations();
+        state.allStations = await fetchStations();
 
         // Fuse.js für die Fuzzy-Suche initialisieren
         const options = {
             keys: ['name', 'address'],
             includeScore: true,
-            threshold: 0.4 // Schwellenwert anpassen für mehr/weniger "Fuzziness"
+            threshold: 0.4
         };
-        fuse = new Fuse(allStations, options);
+        state.fuse = new Fuse(state.allStations, options);
 
         // Lade gespeicherte Tankstellen aus dem LocalStorage
-        loadSelectedStations();
-        loadSelectedFuelTypes();
+        state.selectedStations = loadSelectedStations(state.allStations);
+        state.selectedFuelTypes = loadSelectedFuelTypes();
+        state.selectedTimeRange = loadSelectedTimeRange();
+
+        // UI-Zustand basierend auf geladenen Daten aktualisieren
+        updateFuelTypeCheckboxes();
+        updateTimeRangeRadios();
         renderSelectedStations();
-        if (selectedStations.length > 0) {
+
+        if (state.selectedStations.length > 0) {
             updateChartAndAnalysis();
         }
     } catch (error) {
@@ -57,12 +74,22 @@ async function init() {
     }
 }
 
+
 /**
  * Behandelt die Änderung der Treibstoffauswahl.
  */
 function handleFuelTypeChange() {
-    selectedFuelTypes = Array.from(document.querySelectorAll('#fuelTypeSelector input[name="fuel"]:checked')).map(cb => cb.value);
+    state.selectedFuelTypes = Array.from(document.querySelectorAll('#fuelTypeSelector input[name="fuel"]:checked')).map(cb => cb.value);
     saveSelectedFuelTypes();
+    updateChartAndAnalysis();
+}
+
+/**
+ * Behandelt die Änderung der Zeitraums-Auswahl.
+ */
+function handleTimeRangeChange(event) {
+    state.selectedTimeRange = event.target.value;
+    saveSelectedTimeRange();
     updateChartAndAnalysis();
 }
 
@@ -88,7 +115,7 @@ function handleSearchInput(event) {
         clearSearchResults();
         return;
     }
-    const results = fuse.search(searchTerm);
+    const results = state.fuse.search(searchTerm);
     renderSearchResults(results);
 }
 
@@ -117,13 +144,13 @@ function renderSearchResults(results) {
  */
 function handleResultClick(station) {
     // Füge die Station nur hinzu, wenn sie nicht bereits ausgewählt ist
-    if (selectedStations.find(s => s.station_id === station.station_id)) {
+    if (state.selectedStations.find(s => s.station_id === station.station_id)) {
         clearSearchResults();
         document.getElementById('stationSearch').value = '';
         return;
     }
 
-    selectedStations.push(station);
+    state.selectedStations.push(station);
     saveSelectedStations();
     renderSelectedStations();
     updateChartAndAnalysis();
@@ -147,7 +174,7 @@ function clearSearchResults() {
 function renderSelectedStations() {
     const container = document.getElementById('selectedStationsContainer');
     container.innerHTML = '';
-    selectedStations.forEach(station => {
+    state.selectedStations.forEach(station => {
         const tag = document.createElement('div');
         tag.className = 'station-tag';
         tag.innerHTML = `
@@ -171,7 +198,7 @@ function renderSelectedStations() {
  * @param {string} stationId - Die ID der zu entfernenden Tankstelle.
  */
 function removeStation(stationId) {
-    selectedStations = selectedStations.filter(s => s.station_id !== stationId);
+    state.selectedStations = state.selectedStations.filter(s => s.station_id !== stationId);
     saveSelectedStations();
     renderSelectedStations();
     updateChartAndAnalysis();
@@ -181,48 +208,102 @@ function removeStation(stationId) {
  * Speichert die IDs der ausgewählten Tankstellen im LocalStorage.
  */
 function saveSelectedStations() {
-    const stationIds = selectedStations.map(s => s.station_id);
+    const stationIds = state.selectedStations.map(s => s.station_id);
     localStorage.setItem('selectedStationIds', JSON.stringify(stationIds));
 }
 
 /**
- * Lädt die IDs aus dem LocalStorage und füllt die `selectedStations`-Liste.
+ * Lädt die IDs aus dem LocalStorage und gibt die passenden Tankstellen-Objekte zurück.
+ * @param {Array} allStations - Die vollständige Liste aller Tankstellen.
+ * @returns {Array} Die Liste der ausgewählten Tankstellen-Objekte.
  */
-function loadSelectedStations() {
+function loadSelectedStations(allStations) {
     const savedIds = JSON.parse(localStorage.getItem('selectedStationIds') || '[]');
     if (savedIds.length > 0 && allStations.length > 0) {
         // Finde die vollständigen Tankstellen-Objekte anhand der gespeicherten IDs
-        selectedStations = savedIds.map(id => allStations.find(s => s.station_id === id)).filter(Boolean);
+        return savedIds.map(id => allStations.find(s => s.station_id === id)).filter(Boolean);
     }
+    return [];
 }
 
 /**
  * Speichert die Auswahl der Treibstoffe im LocalStorage.
  */
 function saveSelectedFuelTypes() {
-    localStorage.setItem('selectedFuelTypes', JSON.stringify(selectedFuelTypes));
+    localStorage.setItem('selectedFuelTypes', JSON.stringify(state.selectedFuelTypes));
 }
 
 /**
- * Lädt die Treibstoffauswahl aus dem LocalStorage.
+ * Lädt die Treibstoffauswahl aus dem LocalStorage oder gibt einen Standardwert zurück.
+ * @returns {Array} Die Liste der ausgewählten Treibstoff-Schlüssel.
  */
 function loadSelectedFuelTypes() {
     const savedTypes = JSON.parse(localStorage.getItem('selectedFuelTypes'));
     // Standardmäßig alle anzeigen, wenn nichts gespeichert ist.
-    selectedFuelTypes = savedTypes !== null ? savedTypes : FUEL_TYPE_CONFIG.map(ft => ft.key);
+    return savedTypes !== null ? savedTypes : FUEL_TYPE_CONFIG.map(ft => ft.key);
+}
 
-    // Aktualisiere die Checkboxen, um den geladenen Zustand widerzuspiegeln
+/** Aktualisiert die Checkboxen, um den in `state.selectedFuelTypes` gespeicherten Zustand widerzuspiegeln. */
+function updateFuelTypeCheckboxes() {
     document.querySelectorAll('#fuelTypeSelector input[name="fuel"]').forEach(checkbox => {
-        checkbox.checked = selectedFuelTypes.includes(checkbox.value);
+        checkbox.checked = state.selectedFuelTypes.includes(checkbox.value);
     });
+}
+
+/**
+ * Speichert den ausgewählten Zeitraum im LocalStorage.
+ */
+function saveSelectedTimeRange() {
+    localStorage.setItem('selectedTimeRange', state.selectedTimeRange);
+}
+
+/**
+ * Lädt den Zeitraum aus dem LocalStorage oder gibt einen Standardwert zurück.
+ * @returns {string} Der ausgewählte Zeitraum.
+ */
+function loadSelectedTimeRange() {
+    return localStorage.getItem('selectedTimeRange') || 'all';
+}
+
+/** Aktualisiert die Radio-Buttons, um den in `state.selectedTimeRange` gespeicherten Zustand widerzuspiegeln. */
+function updateTimeRangeRadios() {
+    const radioToCheck = document.querySelector(`#timeRangeSelector input[value="${state.selectedTimeRange}"]`);
+    if (radioToCheck) {
+        radioToCheck.checked = true;
+    }
+}
+
+/**
+ * Filtert ein Array von Preisdaten basierend auf dem ausgewählten Zeitraum.
+ * @param {Array} data - Das Array mit den Preisdaten.
+ * @param {string} range - Der ausgewählte Zeitraum ('1d', '7d', '14d', 'all').
+ * @returns {Array} Das gefilterte Datenarray.
+ */
+function filterDataByTimeRange(data, range) {
+    if (range === 'all' || !data) {
+        return data;
+    }
+
+    const now = new Date();
+    const cutoffDate = new Date();
+
+    if (range === '1d') {
+        cutoffDate.setDate(now.getDate() - 1);
+    } else if (range === '7d') {
+        cutoffDate.setDate(now.getDate() - 7);
+    } else if (range === '14d') {
+        cutoffDate.setDate(now.getDate() - 14);
+    }
+
+    return data.filter(row => new Date(row.last_transmission) >= cutoffDate);
 }
 /**
  * Hauptfunktion, die das Abrufen von Daten und die Aktualisierung von Diagramm und Analyse auslöst.
  */
 async function updateChartAndAnalysis() {
     const recommendationEl = document.getElementById('recommendation');
-    if (selectedStations.length === 0) {
-        if (priceChart) priceChart.destroy();
+    if (state.selectedStations.length === 0) {
+        if (state.priceChart) state.priceChart.destroy();
         recommendationEl.textContent = "Wähle eine oder mehrere Tankstellen aus, um die Analyse zu starten.";
         recommendationEl.style.color = 'black';
         return;
@@ -232,15 +313,22 @@ async function updateChartAndAnalysis() {
 
     try {
         // Rufe Preisdaten für alle ausgewählten Tankstellen parallel ab
-        const priceDataPromises = selectedStations.map(station => fetchPriceHistory(station.station_id));
+        const priceDataPromises = state.selectedStations.map(station => fetchPriceHistory(station.station_id));
         const results = await Promise.all(priceDataPromises);
 
-        const stationDataArray = selectedStations.map((station, index) => ({
+        const stationDataArray = state.selectedStations.map((station, index) => ({
             station: station,
             data: results[index]
         }));
 
-        renderMultiStationChart(stationDataArray);
+        // Filtere die Daten für das Diagramm basierend auf dem ausgewählten Zeitraum
+        const filteredStationDataArray = stationDataArray.map(sd => ({
+            ...sd,
+            data: filterDataByTimeRange(sd.data, state.selectedTimeRange)
+        }));
+
+        renderMultiStationChart(filteredStationDataArray);
+        // Führe die Analyse immer mit dem kompletten Datensatz durch für korrekte Mustererkennung
         analyzeMultiStationPrices(stationDataArray);
     } catch (error) {
         console.error("Fehler beim Abrufen der Preis-Historien:", error);
@@ -286,8 +374,8 @@ async function fetchPriceHistory(stationId) {
 function renderMultiStationChart(stationDataArray) {
     const ctx = document.getElementById('priceChart').getContext('2d');
 
-    if (priceChart) {
-        priceChart.destroy(); // Zerstöre altes Diagramm, bevor ein neues gezeichnet wird
+    if (state.priceChart) {
+        state.priceChart.destroy(); // Zerstöre altes Diagramm, bevor ein neues gezeichnet wird
     }
 
     // Erstelle eine Master-Liste aller eindeutigen Zeitstempel von allen Tankstellen
@@ -300,7 +388,7 @@ function renderMultiStationChart(stationDataArray) {
 
     // Erstelle die Datensätze für das Diagramm
     const datasets = [];
-    const activeFuelTypes = FUEL_TYPE_CONFIG.filter(fuel => selectedFuelTypes.includes(fuel.key));
+    const activeFuelTypes = FUEL_TYPE_CONFIG.filter(fuel => state.selectedFuelTypes.includes(fuel.key));
 
     stationDataArray.forEach((sd, index) => {
         const stationColor = CHART_COLORS[index % CHART_COLORS.length];
@@ -321,7 +409,7 @@ function renderMultiStationChart(stationDataArray) {
         });
     });
 
-    priceChart = new Chart(ctx, {
+    state.priceChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: formattedLabels,
@@ -416,7 +504,7 @@ function analyzeMultiStationPrices(stationDataArray) {
         return cheapest.price === Infinity ? null : cheapest;
     };
 
-    const activeFuelTypes = FUEL_TYPE_CONFIG.filter(fuel => selectedFuelTypes.includes(fuel.key));
+    const activeFuelTypes = FUEL_TYPE_CONFIG.filter(fuel => state.selectedFuelTypes.includes(fuel.key));
     let recommendationText = '<strong>Aktuell günstigste Preise:</strong><br>';
     let pricesFound = false;
 
@@ -468,5 +556,12 @@ function analyzeMultiStationPrices(stationDataArray) {
     });
 }
 
-// Starte die Anwendung, wenn das DOM geladen ist.
-document.addEventListener('DOMContentLoaded', init);
+/**
+ * Hauptfunktion, die die Anwendung startet.
+ */
+async function main() {
+    setupEventListeners();
+    await initializeApp();
+}
+
+document.addEventListener('DOMContentLoaded', main);

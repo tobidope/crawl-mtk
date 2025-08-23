@@ -81,3 +81,19 @@ body {
     margin-top: 0;
     font-size: 1.1em;
 }
+
+#timeRangeSelector {
+    margin-top: 1em;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#timeRangeSelector {
+    margin-top: 1em;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
