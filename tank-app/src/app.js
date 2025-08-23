@@ -1,3 +1,6 @@
+import Chart from 'chart.js/auto';
+import Fuse from 'fuse.js';
+
 const API_BASE_URL = "https://datasette.familie-bell.com"; // Deine datasette URL
 const DB_NAME = "tankentanken"; // Der Name deiner Datenbankdatei ohne .db
 

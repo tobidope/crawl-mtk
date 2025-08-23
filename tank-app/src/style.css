@@ -1,0 +1,62 @@
+body {
+    font-family: sans-serif;
+    margin: 2em;
+}
+
+.chart-container {
+    max-width: 900px;
+    margin: 2em auto;
+}
+
+#recommendation {
+    margin-top: 1em;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#searchResults {
+    border: 1px solid #ddd;
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.search-result-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.search-result-item:hover {
+    background-color: #f0f0f0;
+}
+
+#selectedStationsContainer {
+    margin-top: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.station-tag {
+    background-color: #e0e0e0;
+    padding: 5px 10px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9em;
+}
+
+#fuelTypeSelector {
+    margin-top: 1.5em;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.remove-station {
+    cursor: pointer;
+    font-weight: bold;
+    color: #555;
+}

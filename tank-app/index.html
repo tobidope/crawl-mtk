@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <body>
+    <h1>Tankstellen-Preisanalyse</h1>
+
+    <div>
+        <label for="stationSearch">Suche eine Tankstelle:</label>
+        <input type="text" id="stationSearch" placeholder="z.B. Aral, Eschborn..." autocomplete="off">
+        <div id="searchResults"></div>
+    </div>
+
+    <div id="selectedStationsContainer"></div>
+
+    <div id="fuelTypeSelector">
+        <span>Angezeigte Treibstoffe:</span>
+        <label><input type="checkbox" name="fuel" value="price_super_e10"> Super E10</label>
+        <label><input type="checkbox" name="fuel" value="price_super"> Super E5</label>
+        <label><input type="checkbox" name="fuel" value="price_diesel"> Diesel</label>
+    </div>
+
+    <div class="chart-container">
+        <canvas id="priceChart"></canvas>
+    </div>
+
+    <div id="recommendation">
+        Wähle eine Tankstelle, um die Preisanalyse zu starten.
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
