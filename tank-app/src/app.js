@@ -28,6 +28,21 @@ const FUEL_TYPE_CONFIG = [
 ];
 
 /**
+ * Formatiert eine Zahl als deutschen Währungspreis.
+ * @param {number} price - Der zu formatierende Preis.
+ * @returns {string} Der formatierte Preisstring (z.B. "1,899 €").
+ */
+function formatPrice(price) {
+    if (typeof price !== 'number') {
+        return '';
+    }
+    return price.toLocaleString('de-DE', {
+        style: 'currency',
+        currency: 'EUR',
+        minimumFractionDigits: 3
+    });
+}
+/**
  * Richtet die Event-Listener für die UI-Elemente ein.
  */
 function setupEventListeners() {
@@ -445,6 +460,33 @@ function renderMultiStationChart(stationDataArray) {
         data: {
             labels: formattedLabels,
             datasets: datasets
+        },
+        options: {
+            scales: {
+                y: {
+                    ticks: {
+                        callback: function (value) {
+                            return formatPrice(value);
+                        }
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed.y !== null) {
+                                label += formatPrice(context.parsed.y);
+                            }
+                            return label;
+                        }
+                    }
+                }
+            }
         }
     });
 }
@@ -542,7 +584,7 @@ function analyzeMultiStationPrices(stationDataArray) {
     activeFuelTypes.forEach(fuel => {
         const cheapest = findCheapest(fuel.key);
         if (cheapest) {
-            recommendationText += `${fuel.name}: <strong>${cheapest.price.toFixed(3)}€</strong> bei ${cheapest.station.name}<br>`;
+            recommendationText += `${fuel.name}: <strong>${formatPrice(cheapest.price)}</strong> bei ${cheapest.station.name}<br>`;
             pricesFound = true;
         }
     });
@@ -574,8 +616,8 @@ function analyzeMultiStationPrices(stationDataArray) {
                 const fuelAnalysisEl = document.createElement('p');
                 fuelAnalysisEl.innerHTML = `
                     <strong>${fuel.name}:</strong><br>
-                    Typisch am günstigsten: <strong>${patterns.cheapestDay.day}s, ca. ${patterns.cheapestHour.hour}:00 Uhr</strong> (Ø ${patterns.cheapestHour.price.toFixed(3)}€)<br>
-                    Typisch am teuersten: <strong>${patterns.dearestDay.day}s, ca. ${patterns.dearestHour.hour}:00 Uhr</strong> (Ø ${patterns.dearestHour.price.toFixed(3)}€)
+                    Typisch am günstigsten: <strong>${patterns.cheapestDay.day}s, ca. ${patterns.cheapestHour.hour}:00 Uhr</strong> (Ø ${formatPrice(patterns.cheapestHour.price)})<br>
+                    Typisch am teuersten: <strong>${patterns.dearestDay.day}s, ca. ${patterns.dearestHour.hour}:00 Uhr</strong> (Ø ${formatPrice(patterns.dearestHour.price)})
                 `;
                 stationAnalysisEl.appendChild(fuelAnalysisEl);
             }
