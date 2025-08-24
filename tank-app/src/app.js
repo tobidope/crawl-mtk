@@ -379,7 +379,7 @@ async function updateChartAndAnalysis() {
         }));
 
         renderMultiStationChart(filteredStationDataArray);
-        // Führe die Analyse immer mit dem kompletten Datensatz durch für korrekte Mustererkennung
+        // Führe die Analyse mit den abgerufenen Daten der letzten 30 Tage durch.
         analyzeMultiStationPrices(stationDataArray);
     } catch (error) {
         console.error("Fehler beim Abrufen der Preis-Historien:", error);
@@ -389,9 +389,13 @@ async function updateChartAndAnalysis() {
 }
 
 /**
- * Ruft die Preis-Historie für eine bestimmte Tankstellen-ID ab.
+ * Ruft die Preis-Historie für eine bestimmte Tankstellen-ID ab (maximal 30 Tage).
  */
 async function fetchPriceHistory(stationId) {
+    // Datum für 30 Tage in der Vergangenheit berechnen
+    const sinceDate = new Date();
+    sinceDate.setDate(sinceDate.getDate() - 30);
+
     // Diese SQL-Abfrage verbindet die Preishistorie mit den Stammdaten der Tankstelle.
     const sqlQuery = `
         SELECT
@@ -401,12 +405,15 @@ async function fetchPriceHistory(stationId) {
           ph.price_super_e10
         FROM price_history ph
         JOIN gas_stations gs ON ph.station_id = gs.id
-        WHERE gs.station_id = :station_id
+        WHERE gs.station_id = :station_id AND ph.last_transmission >= :since
         ORDER BY ph.last_transmission
     `;
 
     try {
-        return await fetchPaginatedData(sqlQuery, { station_id: stationId });
+        return await fetchPaginatedData(sqlQuery, {
+            station_id: stationId,
+            since: sinceDate.toISOString()
+        });
     } catch (error) {
         console.error(`Fehler beim Abrufen der Preis-Historie für Station ${stationId}:`, error);
         return []; // Gib ein leeres Array zurück, um Promise.all nicht zu unterbrechen
