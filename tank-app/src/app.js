@@ -3,6 +3,7 @@ import Fuse from 'fuse.js';
 
 const API_BASE_URL = "https://datasette.familie-bell.com"; // Deine datasette URL
 const DB_NAME = "tankentanken"; // Der Name deiner Datenbankdatei ohne .db
+const PAGE_SIZE = 1000; // Anzahl der Ergebnisse pro API-Aufruf für die Paginierung
 
 const state = {
     priceChart: undefined,
@@ -94,25 +95,40 @@ function handleTimeRangeChange(event) {
 }
 
 /**
- * Ruft Daten von der Datasette API ab und behandelt die Paginierung.
- * @param {string} initialUrl - Die anfängliche URL für die API-Anfrage.
+ * Ruft Daten von der Datasette API ab und behandelt die Paginierung mit LIMIT/OFFSET.
+ * @param {string} baseQuery - Die SQL-Abfrage ohne LIMIT/OFFSET.
+ * @param {object} params - Ein Objekt mit Parametern für die SQL-Abfrage.
  * @returns {Promise<Array>} Ein Promise, das zu einem Array mit allen Zeilen auflöst.
  */
-async function fetchPaginatedData(initialUrl) {
+async function fetchPaginatedData(baseQuery, params = {}) {
     let allRows = [];
-    let url = initialUrl;
+    let offset = 0;
+    let hasMore = true;
 
-    while (url) {
+    const paramString = Object.entries(params)
+        .map(([key, value]) => `&${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+        .join('');
+
+    while (hasMore) {
+        const query = `${baseQuery} LIMIT ${PAGE_SIZE} OFFSET ${offset}`;
+        const url = `${API_BASE_URL}/${DB_NAME}.json?sql=${encodeURIComponent(query)}${paramString}&_shape=objects`;
+
         const response = await fetch(url);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status} for URL: ${url}`);
         }
         const data = await response.json();
-        // Datasette's default JSON shape has a 'rows' property
-        if (data.rows) {
-            allRows = allRows.concat(data.rows);
+        const fetchedRows = data.rows || [];
+
+        if (fetchedRows.length > 0) {
+            allRows = allRows.concat(fetchedRows);
         }
-        url = data.next_url; // Continue to the next page if it exists
+
+        if (fetchedRows.length < PAGE_SIZE) {
+            hasMore = false;
+        } else {
+            offset += PAGE_SIZE;
+        }
     }
     return allRows;
 }
@@ -122,9 +138,8 @@ async function fetchPaginatedData(initialUrl) {
  */
 async function fetchStations() {
     // Diese Abfrage holt alle eindeutigen Tankstellen
-    const sqlQuery = `select station_id, name, address from gas_stations order by name;`;
-    const url = `${API_BASE_URL}/${DB_NAME}.json?sql=${encodeURIComponent(sqlQuery)}`;
-    return await fetchPaginatedData(url);
+    const sqlQuery = `select station_id, name, address from gas_stations order by name`;
+    return await fetchPaginatedData(sqlQuery);
 }
 
 /**
@@ -372,12 +387,11 @@ async function fetchPriceHistory(stationId) {
         FROM price_history ph
         JOIN gas_stations gs ON ph.station_id = gs.id
         WHERE gs.station_id = :station_id
-        ORDER BY ph.last_transmission;
+        ORDER BY ph.last_transmission
     `;
-    const url = `${API_BASE_URL}/${DB_NAME}.json?sql=${encodeURIComponent(sqlQuery)}&station_id=${stationId}`;
 
     try {
-        return await fetchPaginatedData(url);
+        return await fetchPaginatedData(sqlQuery, { station_id: stationId });
     } catch (error) {
         console.error(`Fehler beim Abrufen der Preis-Historie für Station ${stationId}:`, error);
         return []; // Gib ein leeres Array zurück, um Promise.all nicht zu unterbrechen
