@@ -1,5 +1,8 @@
 import Chart from 'chart.js/auto';
+import zoomPlugin from 'chartjs-plugin-zoom';
 import Fuse from 'fuse.js';
+
+Chart.register(zoomPlugin);
 
 const API_BASE_URL = "https://datasette.familie-bell.com"; // Deine datasette URL
 const DB_NAME = "tankentanken"; // Der Name deiner Datenbankdatei ohne .db
@@ -42,6 +45,65 @@ function formatPrice(price) {
         minimumFractionDigits: 3
     });
 }
+
+/**
+ * Aktualisiert die Browser-URL mit dem aktuellen Anwendungszustand.
+ */
+function updateUrlWithState() {
+    const params = new URLSearchParams();
+
+    if (state.selectedStations.length > 0) {
+        params.set('stations', state.selectedStations.map(s => s.station_id).join(','));
+    }
+
+    // Speichere immer alle Parameter für eine eindeutige URL
+    params.set('fuels', state.selectedFuelTypes.join(','));
+    // Handle custom time range object or string
+    if (typeof state.selectedTimeRange === 'object') {
+        const { start, end } = state.selectedTimeRange;
+        params.set('time', `${start.toISOString()};${end.toISOString()}`);
+    } else {
+        params.set('time', state.selectedTimeRange);
+    }
+
+    // benutze replaceState, um die Browser-History nicht mit jeder kleinen Änderung zu füllen
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    window.history.replaceState({}, '', newUrl);
+}
+
+/**
+ * Liest den Zustand aus den URL-Parametern.
+ * @returns {object|null} Ein Objekt mit dem Zustand oder null, wenn keine Parameter vorhanden sind.
+ */
+function loadStateFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const stationIdsParam = params.get('stations');
+    const fuelTypesParam = params.get('fuels');
+    const timeRangeParam = params.get('time');
+
+    // Nur fortfahren, wenn mindestens ein relevanter Parameter vorhanden ist.
+    if (!stationIdsParam && !fuelTypesParam && !timeRangeParam) {
+        return null;
+    }
+
+    let timeRange = timeRangeParam;
+    if (timeRangeParam && timeRangeParam.includes(';')) {
+        const [start, end] = timeRangeParam.split(';');
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+        if (!isNaN(startDate) && !isNaN(endDate)) {
+            timeRange = { start: startDate, end: endDate };
+        }
+    }
+
+    return {
+        stationIds: stationIdsParam ? stationIdsParam.split(',') : [],
+        // Gibt null zurück, wenn der Parameter fehlt, ansonsten das Array (kann leer sein)
+        fuelTypes: fuelTypesParam !== null ? (fuelTypesParam ? fuelTypesParam.split(',') : []) : null,
+        timeRange: timeRange
+    };
+}
+
 /**
  * Richtet die Event-Listener für die UI-Elemente ein.
  */
@@ -54,6 +116,8 @@ function setupEventListeners() {
     document.querySelectorAll('#timeRangeSelector input[name="timeRange"]').forEach(radio => {
         radio.addEventListener('change', handleTimeRangeChange);
     });
+    // HINWEIS: Füge einen Button mit id="resetZoomBtn" zu deiner HTML-Datei hinzu, z.B. bei der Zeitraumauswahl.
+    document.getElementById('resetZoomBtn')?.addEventListener('click', handleResetZoom);
 }
 
 /**
@@ -71,10 +135,21 @@ async function initializeApp() {
         };
         state.fuse = new Fuse(state.allStations, options);
 
-        // Lade gespeicherte Tankstellen aus dem LocalStorage
-        state.selectedStations = loadSelectedStations(state.allStations);
-        state.selectedFuelTypes = loadSelectedFuelTypes();
-        state.selectedTimeRange = loadSelectedTimeRange();
+        const urlState = loadStateFromUrl();
+        if (urlState) {
+            // Lade Zustand aus der URL
+            state.selectedStations = urlState.stationIds
+                .map(id => state.allStations.find(s => s.station_id === id))
+                .filter(Boolean); // Entferne null-Werte, falls eine ID ungültig ist
+            // Wenn der 'fuels'-Parameter fehlt, nimm den Standard. Wenn er da ist (auch leer), nimm ihn.
+            state.selectedFuelTypes = urlState.fuelTypes !== null ? urlState.fuelTypes : FUEL_TYPE_CONFIG.map(ft => ft.key);
+            state.selectedTimeRange = urlState.timeRange || 'all'; // `timeRange` kann ein Objekt sein
+        } else {
+            // Lade gespeicherte Tankstellen aus dem LocalStorage als Fallback
+            state.selectedStations = loadSelectedStations(state.allStations);
+            state.selectedFuelTypes = loadSelectedFuelTypes();
+            state.selectedTimeRange = loadSelectedTimeRange();
+        }
 
         // UI-Zustand basierend auf geladenen Daten aktualisieren
         updateFuelTypeCheckboxes();
@@ -97,6 +172,7 @@ async function initializeApp() {
 function handleFuelTypeChange() {
     state.selectedFuelTypes = Array.from(document.querySelectorAll('#fuelTypeSelector input[name="fuel"]:checked')).map(cb => cb.value);
     saveSelectedFuelTypes();
+    updateUrlWithState();
     updateChartAndAnalysis();
 }
 
@@ -106,7 +182,16 @@ function handleFuelTypeChange() {
 function handleTimeRangeChange(event) {
     state.selectedTimeRange = event.target.value;
     saveSelectedTimeRange();
+
+    // Verstecke den "Zoom zurücksetzen"-Button und setze den Chart-Zoom zurück
+    const resetBtn = document.getElementById('resetZoomBtn');
+    if (resetBtn) resetBtn.style.display = 'none';
+    if (state.priceChart && (state.priceChart.isZoomedOrPanned && state.priceChart.isZoomedOrPanned())) {
+        state.priceChart.resetZoom('none');
+    }
+
     updateChartAndAnalysis();
+    updateUrlWithState(); // URL nach der Analyse aktualisieren
 }
 
 /**
@@ -203,6 +288,7 @@ function handleResultClick(station) {
 
     state.selectedStations.push(station);
     saveSelectedStations();
+    updateUrlWithState();
     renderSelectedStations();
     updateChartAndAnalysis();
 
@@ -251,6 +337,7 @@ function renderSelectedStations() {
 function removeStation(stationId) {
     state.selectedStations = state.selectedStations.filter(s => s.station_id !== stationId);
     saveSelectedStations();
+    updateUrlWithState();
     renderSelectedStations();
     updateChartAndAnalysis();
 }
@@ -305,7 +392,15 @@ function updateFuelTypeCheckboxes() {
  * Speichert den ausgewählten Zeitraum im LocalStorage.
  */
 function saveSelectedTimeRange() {
-    localStorage.setItem('selectedTimeRange', state.selectedTimeRange);
+    let valueToSave;
+    if (typeof state.selectedTimeRange === 'object' && state.selectedTimeRange.start) {
+        // Serialisiere das Objekt in einen String, den wir wieder parsen können
+        const { start, end } = state.selectedTimeRange;
+        valueToSave = `${start.toISOString()};${end.toISOString()}`;
+    } else {
+        valueToSave = state.selectedTimeRange;
+    }
+    localStorage.setItem('selectedTimeRange', valueToSave);
 }
 
 /**
@@ -313,14 +408,34 @@ function saveSelectedTimeRange() {
  * @returns {string} Der ausgewählte Zeitraum.
  */
 function loadSelectedTimeRange() {
-    return localStorage.getItem('selectedTimeRange') || 'all';
+    const saved = localStorage.getItem('selectedTimeRange') || 'all';
+    if (saved.includes(';')) {
+        const [start, end] = saved.split(';');
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+        if (!isNaN(startDate) && !isNaN(endDate)) {
+            return { start: startDate, end: endDate };
+        }
+    }
+    return saved;
 }
 
 /** Aktualisiert die Radio-Buttons, um den in `state.selectedTimeRange` gespeicherten Zustand widerzuspiegeln. */
 function updateTimeRangeRadios() {
-    const radioToCheck = document.querySelector(`#timeRangeSelector input[value="${state.selectedTimeRange}"]`);
-    if (radioToCheck) {
-        radioToCheck.checked = true;
+    const resetBtn = document.getElementById('resetZoomBtn');
+    if (typeof state.selectedTimeRange === 'object') {
+        // Benutzerdefinierter (Zoom-)Bereich, deaktiviere alle Radios und zeige Reset-Button
+        document.querySelectorAll('#timeRangeSelector input[name="timeRange"]').forEach(radio => {
+            radio.checked = false;
+        });
+        if (resetBtn) resetBtn.style.display = 'inline-block';
+    } else {
+        // Standardbereich, aktiviere das richtige Radio und verstecke Reset-Button
+        const radioToCheck = document.querySelector(`#timeRangeSelector input[value="${state.selectedTimeRange}"]`);
+        if (radioToCheck) {
+            radioToCheck.checked = true;
+        }
+        if (resetBtn) resetBtn.style.display = 'none';
     }
 }
 
@@ -335,18 +450,31 @@ function filterDataByTimeRange(data, range) {
         return data;
     }
 
-    const now = new Date();
-    const cutoffDate = new Date();
+    let startDate, endDate;
 
-    if (range === '1d') {
-        cutoffDate.setDate(now.getDate() - 1);
-    } else if (range === '7d') {
-        cutoffDate.setDate(now.getDate() - 7);
-    } else if (range === '14d') {
-        cutoffDate.setDate(now.getDate() - 14);
+    if (typeof range === 'object' && range.start && range.end) {
+        startDate = range.start;
+        endDate = range.end;
+    } else if (typeof range === 'string') {
+        const now = new Date();
+        startDate = new Date();
+        if (range === '1d') {
+            startDate.setDate(now.getDate() - 1);
+        } else if (range === '7d') {
+            startDate.setDate(now.getDate() - 7);
+        } else if (range === '14d') {
+            startDate.setDate(now.getDate() - 14);
+        } else {
+            return data; // Sollte nicht passieren, wenn range nicht 'all' ist
+        }
+    } else {
+        return data; // Ungültiger Range-Typ
     }
 
-    return data.filter(row => new Date(row.last_transmission) >= cutoffDate);
+    return data.filter(row => {
+        const rowDate = new Date(row.last_transmission);
+        return rowDate >= startDate && (!endDate || rowDate <= endDate);
+    });
 }
 /**
  * Hauptfunktion, die das Abrufen von Daten und die Aktualisierung von Diagramm und Analyse auslöst.
@@ -492,6 +620,23 @@ function renderMultiStationChart(stationDataArray) {
                             return label;
                         }
                     }
+                },
+                zoom: {
+                    pan: {
+                        enabled: true,
+                        mode: 'x',
+                    },
+                    zoom: {
+                        drag: {
+                            enabled: true,
+                            backgroundColor: 'rgba(0, 123, 255, 0.2)'
+                        },
+                        mode: 'x',
+                        onZoomComplete: ({ chart }) => {
+                            const { min, max } = chart.scales.x;
+                            handleZoom(sortedLabels[min], sortedLabels[max]);
+                        }
+                    }
                 }
             }
         }
@@ -634,6 +779,32 @@ function analyzeMultiStationPrices(stationDataArray) {
             patternContainer.appendChild(stationAnalysisEl);
         }
     });
+}
+
+/**
+ * Wird aufgerufen, wenn der Benutzer im Diagramm zoomt. Aktualisiert den Zustand.
+ * @param {string} startDate - Das Startdatum als ISO-String.
+ * @param {string} endDate - Das Enddatum als ISO-String.
+ */
+function handleZoom(startDate, endDate) {
+    state.selectedTimeRange = { start: new Date(startDate), end: new Date(endDate) };
+    saveSelectedTimeRange();
+    updateUrlWithState();
+    updateTimeRangeRadios(); // Deaktiviert Radios und zeigt Reset-Button
+}
+
+/**
+ * Setzt den Zoom des Diagramms und den Zeitraum auf "Alle" zurück.
+ */
+function handleResetZoom() {
+    state.selectedTimeRange = 'all';
+    saveSelectedTimeRange();
+
+    if (state.priceChart) {
+        state.priceChart.resetZoom('none');
+    }
+
+    updateChartAndAnalysis();
 }
 
 /**

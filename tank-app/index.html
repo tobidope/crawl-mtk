@@ -32,7 +32,11 @@
     <label><input type="radio" name="timeRange" value="7d"> 7 Tage</label>
     <label><input type="radio" name="timeRange" value="14d"> 14 Tage</label>
     <label><input type="radio" name="timeRange" value="all" checked> Alles</label>
+    <!-- Innerhalb des <div id="timeRangeSelector"> ... -->
+    <button id="resetZoomBtn" style="display: none;">Zoom zurücksetzen</button>
   </div>
+
+
 
   <div class="chart-container">
     <canvas id="priceChart"></canvas>
