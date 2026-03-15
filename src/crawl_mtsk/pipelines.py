@@ -158,7 +158,6 @@ class GeoCodingPipeline:
         )
         await self.locator.__aenter__()
 
-
     async def close_spider(self):
         self.db_client.close()
         await self.locator.__aexit__(None, None, None)
