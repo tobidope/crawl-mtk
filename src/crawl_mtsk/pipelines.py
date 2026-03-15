@@ -149,7 +149,7 @@ class GeoCodingPipeline:
         self.db_client = db_client
         self.api_key = api_key
 
-    def open_spider(self, spider):
+    def open_spider(self):
         self.db_client.create_schema()
 
     async def _on_spider_opened(self):
@@ -160,7 +160,7 @@ class GeoCodingPipeline:
         )
         await self.locator.__aenter__()
 
-    def close_spider(self, spider):
+    def close_spider(self):
         self.db_client.close()
 
     async def _on_spider_closed(self):
