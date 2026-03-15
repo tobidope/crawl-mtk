@@ -125,35 +125,37 @@ class DBClient:
 
 
 class SQLitePipeline:
-    def __init__(self, client: DBClient):
+    def __init__(self, client: DBClient, crawler):
         self.client = client
+        self.crawler = crawler
 
     @classmethod
     def from_crawler(cls, crawler):
         db_path = crawler.settings.get("SQLITE_DB_PATH")
         client = DBClient(db_path)
-        return cls(client=client)
+        return cls(client=client, crawler=crawler)
 
-    def open_spider(self, spider):
+    def open_spider(self):
         self.client.create_schema()
 
-    def close_spider(self, spider):
+    def close_spider(self):
         self.client.close()
 
-    def process_item(self, item, spider):
+    def process_item(self, item):
         return self.client.save_item(item)
 
 
 class GeoCodingPipeline:
-    def __init__(self, db_client: DBClient):
+    def __init__(self, db_client: DBClient, crawler):
         self.db_client = db_client
+        self.crawler = crawler
 
     def open_spider(self, spider):
         self.db_client.create_schema()
 
-    async def _on_spider_opened(self, spider):
+    async def _on_spider_opened(self):
         self.locator = GoogleV3(
-            api_key=spider.settings.get("GOOGLE_MAPS_API_KEY"),
+            api_key=self.crawler.spider.settings.get("GOOGLE_MAPS_API_KEY"),
             user_agent="crawl-mtsk",
             adapter_factory=AioHTTPAdapter,
         )
@@ -162,18 +164,18 @@ class GeoCodingPipeline:
     def close_spider(self, spider):
         self.db_client.close()
 
-    async def _on_spider_closed(self, spider):
+    async def _on_spider_closed(self):
         await self.locator.__aexit__(None, None, None)
 
     @classmethod
     def from_crawler(cls, crawler):
         client = DBClient(db_path=crawler.settings.get("SQLITE_DB_PATH"))
-        pipeline = cls(client)
+        pipeline = cls(client, crawler)
         crawler.signals.connect(pipeline._on_spider_opened, signal=spider_opened)
         crawler.signals.connect(pipeline._on_spider_closed, signal=spider_closed)
         return pipeline
 
-    async def process_item(self, item, spider):
+    async def process_item(self, item):
         if self.db_client.is_geocoded(item):
             logger.debug("Item %s already geocoded, skipping", item["id"])
             return item
