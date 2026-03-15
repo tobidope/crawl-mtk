@@ -6,6 +6,7 @@ Type=simple
 EnvironmentFile=-%h/crawl-mtk/datasette/.env
 
 ExecStartPre=%h/.local/bin/uv tool install datasette --compile-bytecode
+ExecStartPre=%h/.local/bin/uv tool upgrade datasette --compile-bytecode
 ExecStartPre= %h/.local/bin/datasette install datasette-vega
 ExecStartPre= %h/.local/bin/datasette install datasette-cluster-map
 
