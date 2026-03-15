@@ -149,10 +149,8 @@ class GeoCodingPipeline:
         self.db_client = db_client
         self.api_key = api_key
 
-    def open_spider(self):
+    async def open_spider(self):
         self.db_client.create_schema()
-
-    async def _on_spider_opened(self):
         self.locator = GoogleV3(
             api_key=self.api_key,
             user_agent="crawl-mtsk",
@@ -160,10 +158,9 @@ class GeoCodingPipeline:
         )
         await self.locator.__aenter__()
 
-    def close_spider(self):
-        self.db_client.close()
 
-    async def _on_spider_closed(self):
+    async def close_spider(self):
+        self.db_client.close()
         await self.locator.__aexit__(None, None, None)
 
     @classmethod
@@ -171,8 +168,6 @@ class GeoCodingPipeline:
         client = DBClient(db_path=crawler.settings.get("SQLITE_DB_PATH"))
         api_key = crawler.settings.get("GOOGLE_MAPS_API_KEY")
         pipeline = cls(client, api_key)
-        crawler.signals.connect(pipeline._on_spider_opened, signal=spider_opened)
-        crawler.signals.connect(pipeline._on_spider_closed, signal=spider_closed)
         return pipeline
 
     async def process_item(self, item):
