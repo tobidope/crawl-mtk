@@ -125,15 +125,14 @@ class DBClient:
 
 
 class SQLitePipeline:
-    def __init__(self, client: DBClient, crawler):
+    def __init__(self, client: DBClient):
         self.client = client
-        self.crawler = crawler
 
     @classmethod
     def from_crawler(cls, crawler):
         db_path = crawler.settings.get("SQLITE_DB_PATH")
         client = DBClient(db_path)
-        return cls(client=client, crawler=crawler)
+        return cls(client=client)
 
     def open_spider(self):
         self.client.create_schema()
@@ -146,16 +145,16 @@ class SQLitePipeline:
 
 
 class GeoCodingPipeline:
-    def __init__(self, db_client: DBClient, crawler):
+    def __init__(self, db_client: DBClient, api_key: str):
         self.db_client = db_client
-        self.crawler = crawler
+        self.api_key = api_key
 
     def open_spider(self, spider):
         self.db_client.create_schema()
 
     async def _on_spider_opened(self):
         self.locator = GoogleV3(
-            api_key=self.crawler.spider.settings.get("GOOGLE_MAPS_API_KEY"),
+            api_key=self.api_key,
             user_agent="crawl-mtsk",
             adapter_factory=AioHTTPAdapter,
         )
@@ -170,7 +169,8 @@ class GeoCodingPipeline:
     @classmethod
     def from_crawler(cls, crawler):
         client = DBClient(db_path=crawler.settings.get("SQLITE_DB_PATH"))
-        pipeline = cls(client, crawler)
+        api_key = crawler.settings.get("GOOGLE_MAPS_API_KEY")
+        pipeline = cls(client, api_key)
         crawler.signals.connect(pipeline._on_spider_opened, signal=spider_opened)
         crawler.signals.connect(pipeline._on_spider_closed, signal=spider_closed)
         return pipeline
